@@ -2,7 +2,7 @@
 
 ## Bis nächsten Donnerstag
 
-- [ ] Coding Style
+- [x] Coding Style
 - [ ] TypeScript
 - [ ] DOM
 - [ ] Event-System
