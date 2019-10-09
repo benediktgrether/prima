@@ -2,6 +2,6 @@ console.log("Hello World");
 
 window.addEventListener("load", handleLoad);
 
-function handleLoad(_event: Event): void{
+function handleLoad(_event: Event): void {
     document.body.innerHTML = "!Hello World!";
 }
