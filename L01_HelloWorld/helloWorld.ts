@@ -1,41 +1,44 @@
-console.log("Hello World");
+namespace L01_HelloWorld {
 
-// Müssen wir immer die Variablen Deklaration mitgeben?
-// oder ist es für uns, für die leichtere Lesbarkeit?
-let stringOutput: string = "!Hello World!";
+  console.log("Hello World");
 
-// Was sind die 2 Unterschiede?
-let listNumber: number[] = [1, 2, 3];
-let listArrayNumber: Array<number> = [1, 2, 3];
+  // Müssen wir immer die Variablen Deklaration mitgeben?
+  // oder ist es für uns, für die leichtere Lesbarkeit?
+  let stringOutput: string = "!Hello World!";
 
-let tupelArray: [string, number] = ["Chris", 22];
+  // Was sind die 2 Unterschiede?
+  let listNumber: number[] = [1, 2, 3];
+  let listArrayNumber: Array<number> = [1, 2, 3];
 
-// enums
+  let tupelArray: [string, number] = ["Chris", 22];
 
-enum Color {
-  Red = 5,
-  Green,
-  Blue
-}
+  // enums
 
-let c: Color = Color.Green;
+  enum Color {
+    Red = 5,
+    Green,
+    Blue
+  }
 
-// Test für die Deklaration
-let a: string;
-a = "Hello World!";
+  let c: Color = Color.Green;
 
-let b: number;
-b = 12;
-//  b = a;
+  // Test für die Deklaration
+  let a: string;
+  a = "Hello World!";
 
-// Multitype
-let multiType: number | boolean;
-multiType = 20;
-multiType = true;
+  let b: number;
+  b = 12;
+  //  b = a;
 
-window.addEventListener("load", handleLoad);
+  // Multitype
+  let multiType: number | boolean;
+  multiType = 20;
+  multiType = true;
 
-function handleLoad(_event: Event): void {
-  document.body.innerHTML = stringOutput;
-  //  document.body.innerHTML = c.toString();
+  window.addEventListener("load", handleLoad);
+
+  function handleLoad(_event: Event): void {
+    document.body.innerHTML = stringOutput;
+    //  document.body.innerHTML = c.toString();
+  }
 }
