@@ -55,13 +55,28 @@ namespace L02_FirstGamePong{
         playerOneNode.appendChild(playBallNode);
         playBallNode.addComponent(cmpPlayBallMesh);
         playBallNode.addComponent(cmpPlayBallMaterial);
-
+        
         // Player Movement
-
+        document.body.onkeydown = function(e: KeyboardEvent): void {
+            if (e.keyCode == 38) {
+                cmpPlayerOneMesh.pivot.translateY(0.01);
+                viewport.draw();
+            } else if (e.keyCode == 40) {
+                cmpPlayerOneMesh.pivot.translateY(-0.01);
+                viewport.draw();
+            } else if (e.keyCode == 87) {
+                cmpPlayerTwoMesh.pivot.translateY(0.01);
+                viewport.draw();
+            } else if (e.keyCode == 83) {
+                cmpPlayerTwoMesh.pivot.translateY(-0.01);
+                viewport.draw();
+            }
+        };
         // 
 
         // Add Camera Component
         let cmpCamera: ƒ.ComponentCamera = new ƒ.ComponentCamera();
+    
         let viewport: ƒ.Viewport = new ƒ.Viewport;
         viewport.initialize("camrea",playerOneNode, cmpCamera, canvas);
 

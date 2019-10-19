@@ -44,6 +44,24 @@ var L02_FirstGamePong;
         playBallNode.addComponent(cmpPlayBallMesh);
         playBallNode.addComponent(cmpPlayBallMaterial);
         // Player Movement
+        document.body.onkeydown = function (e) {
+            if (e.keyCode == 38) {
+                cmpPlayerOneMesh.pivot.translateY(0.01);
+                viewport.draw();
+            }
+            else if (e.keyCode == 40) {
+                cmpPlayerOneMesh.pivot.translateY(-0.01);
+                viewport.draw();
+            }
+            else if (e.keyCode == 87) {
+                cmpPlayerTwoMesh.pivot.translateY(0.01);
+                viewport.draw();
+            }
+            else if (e.keyCode == 83) {
+                cmpPlayerTwoMesh.pivot.translateY(-0.01);
+                viewport.draw();
+            }
+        };
         // 
         // Add Camera Component
         var cmpCamera = new ƒ.ComponentCamera();
