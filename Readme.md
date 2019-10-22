@@ -22,3 +22,8 @@ let listArrayNumber: Array<number> = [1, 2, 3];
 
 Bei Funktionen und allgemein.
 Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein geschrieben ? 
+
+
+## To Do Pong
+
+-> change Three Differenc Mesh to one Mesh that reuseable is.
