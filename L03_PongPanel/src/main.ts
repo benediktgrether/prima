@@ -21,13 +21,30 @@ namespace L03_PongPanel {
 
         let cmpCamera: ƒ.ComponentCamera = new ƒ.ComponentCamera();
         cmpCamera.pivot.translateZ(42);
-        
+
         paddleRight.cmpTransform.local.translateX(20);
         paddleLeft.cmpTransform.local.translateX(-20);
-        
-    
-        (<ƒ.ComponentMesh> paddleLeft.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
-        (<ƒ.ComponentMesh> paddleRight.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
+
+
+        (<ƒ.ComponentMesh>paddleLeft.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
+        (<ƒ.ComponentMesh>paddleRight.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
+
+        document.body.onkeydown = function(e: KeyboardEvent): void {
+            if (e.keyCode == 38) {
+                (<ƒ.ComponentMesh>paddleRight.getComponent(ƒ.ComponentMesh)).pivot.translateY(0.1);
+                viewport.draw();
+            } else if (e.keyCode == 40) {
+                (<ƒ.ComponentMesh>paddleRight.getComponent(ƒ.ComponentMesh)).pivot.translateY(-0.1);
+                viewport.draw();
+            } else if (e.keyCode == 87) {
+                (<ƒ.ComponentMesh>paddleLeft.getComponent(ƒ.ComponentMesh)).pivot.translateY(0.1);
+                viewport.draw();
+            } else if (e.keyCode == 83) {
+                (<ƒ.ComponentMesh>paddleLeft.getComponent(ƒ.ComponentMesh)).pivot.translateY(-0.1);
+                viewport.draw();
+            }
+        };
+
 
         viewport = new ƒ.Viewport();
         viewport.initialize("Viewport", pong, cmpCamera, canvas);
@@ -38,16 +55,16 @@ namespace L03_PongPanel {
 
     function createPong(): ƒ.Node {
         let pong: ƒ.Node = new ƒ.Node("Pong");
-        
+
 
         let meshQuad: ƒ.MeshQuad = new ƒ.MeshQuad();
-        let mtrSolidWhite: ƒ.Material = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1,1,1,1)));
+        let mtrSolidWhite: ƒ.Material = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
 
         ball.addComponent(new ƒ.ComponentMesh(meshQuad));
         paddleLeft.addComponent(new ƒ.ComponentMesh(meshQuad));
         paddleRight.addComponent(new ƒ.ComponentMesh(meshQuad));
 
-        
+
         ball.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
         paddleLeft.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
         paddleRight.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
