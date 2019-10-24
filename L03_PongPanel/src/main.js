@@ -17,24 +17,6 @@ var L03_PongPanel;
         paddleLeft.cmpTransform.local.translateX(-20);
         paddleLeft.getComponent(ƒ.ComponentMesh).pivot.scaleY(4);
         paddleRight.getComponent(ƒ.ComponentMesh).pivot.scaleY(4);
-        document.body.onkeydown = function (e) {
-            if (e.keyCode == 38) {
-                paddleRight.getComponent(ƒ.ComponentMesh).pivot.translateY(0.1);
-                L03_PongPanel.viewport.draw();
-            }
-            else if (e.keyCode == 40) {
-                paddleRight.getComponent(ƒ.ComponentMesh).pivot.translateY(-0.1);
-                L03_PongPanel.viewport.draw();
-            }
-            else if (e.keyCode == 87) {
-                paddleLeft.getComponent(ƒ.ComponentMesh).pivot.translateY(0.1);
-                L03_PongPanel.viewport.draw();
-            }
-            else if (e.keyCode == 83) {
-                paddleLeft.getComponent(ƒ.ComponentMesh).pivot.translateY(-0.1);
-                L03_PongPanel.viewport.draw();
-            }
-        };
         L03_PongPanel.viewport = new ƒ.Viewport();
         L03_PongPanel.viewport.initialize("Viewport", pong, cmpCamera, canvas);
         ƒ.Debug.log(L03_PongPanel.viewport);
@@ -58,5 +40,25 @@ var L03_PongPanel;
         pong.appendChild(paddleLeft);
         pong.appendChild(paddleRight);
         return pong;
+    }
+    function addOnKeyDownEvent() {
+        document.body.onkeydown = function (e) {
+            if (e.keyCode == 38) {
+                paddleRight.getComponent(ƒ.ComponentMesh).pivot.translateY(0.1);
+                L03_PongPanel.viewport.draw();
+            }
+            else if (e.keyCode == 40) {
+                paddleRight.getComponent(ƒ.ComponentMesh).pivot.translateY(-0.1);
+                L03_PongPanel.viewport.draw();
+            }
+            else if (e.keyCode == 87) {
+                paddleLeft.getComponent(ƒ.ComponentMesh).pivot.translateY(0.1);
+                L03_PongPanel.viewport.draw();
+            }
+            else if (e.keyCode == 83) {
+                paddleLeft.getComponent(ƒ.ComponentMesh).pivot.translateY(-0.1);
+                L03_PongPanel.viewport.draw();
+            }
+        };
     }
 })(L03_PongPanel || (L03_PongPanel = {}));

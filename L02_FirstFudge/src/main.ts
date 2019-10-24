@@ -1,3 +1,4 @@
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 namespace L02_FirstFudge {
     import ƒ = FudgeCore;
 
