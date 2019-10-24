@@ -26,4 +26,5 @@ Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein ge
 
 ## To Do Pong
 
--> change Three Differenc Mesh to one Mesh that reuseable is.
+- [] Ball soll sich mit verschiedener Geschwindigkeit starten (Vector 3)
+- [] An allen vier Wänden wieder abprallen.

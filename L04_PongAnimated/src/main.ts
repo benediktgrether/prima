@@ -1,17 +1,23 @@
 ///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
-namespace L03_PongPanel {
-    import ƒ = FudgeCore;
+namespace L04_PongAnimated {
+    
+    interface KeyPressed {
+        [code: string]: boolean;
+    }
 
+    import ƒ = FudgeCore;
 
     window.addEventListener("load", handleLoad);
 
     // What do the viewport?
-    export let viewport: ƒ.Viewport;
+    let viewport: ƒ.Viewport;
 
     let ball: ƒ.Node = new ƒ.Node("Ball");
     let paddleLeft: ƒ.Node =    new ƒ.Node("PaddleLeft");
     let paddleRight: ƒ.Node = new ƒ.Node("PaddleRight");
-
+    
+    let keysPressed: KeyPressed = {};
+    
     function handleLoad(_event: Event): void {
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
@@ -25,17 +31,15 @@ namespace L03_PongPanel {
         paddleRight.cmpTransform.local.translateX(20);
         paddleLeft.cmpTransform.local.translateX(-20);
 
-
         (<ƒ.ComponentMesh>paddleLeft.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
         (<ƒ.ComponentMesh>paddleRight.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
-
-        
 
         viewport = new ƒ.Viewport();
         viewport.initialize("Viewport", pong, cmpCamera, canvas);
         ƒ.Debug.log(viewport);
 
         document.addEventListener("keydown", hndKeydown);
+        document.addEventListener("keyup", hndKeyup);
 
         viewport.draw();
 
@@ -45,13 +49,30 @@ namespace L03_PongPanel {
     }
 
     function update(_event: Event): void {
+        // ƒ.Debug.log(keysPressed);
+
+        if ( keysPressed[ƒ.KEYBOARD_CODE.ARROW_UP]) {
+            paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
+
+        } 
+        if ( keysPressed[ƒ.KEYBOARD_CODE.ARROW_DOWN]) {
+            paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));   
+
+        } 
+        if ( keysPressed[ƒ.KEYBOARD_CODE.W]) {
+            paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
+
+        } 
+        if ( keysPressed[ƒ.KEYBOARD_CODE.S]) {
+            paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
+        }
+
         ƒ.RenderManager.update();
         viewport.draw();
     }
 
     function createPong(): ƒ.Node {
         let pong: ƒ.Node = new ƒ.Node("Pong");
-
 
         let meshQuad: ƒ.MeshQuad = new ƒ.MeshQuad();
         let mtrSolidWhite: ƒ.Material = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
@@ -77,20 +98,12 @@ namespace L03_PongPanel {
         return pong;
     }
 
+
+    function hndKeyup(_event: KeyboardEvent): void {
+        keysPressed[_event.code] = false;
+    }
+
     function hndKeydown(_event: KeyboardEvent): void {
-        switch (_event.code) {
-            case ƒ.KEYBOARD_CODE.ARROW_UP:
-                paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
-                break;
-            case ƒ.KEYBOARD_CODE.ARROW_DOWN:
-                paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
-                break;
-            case ƒ.KEYBOARD_CODE.W:
-                paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
-                break;
-            case ƒ.KEYBOARD_CODE.S:
-                paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
-                break;
-        }
+        keysPressed[_event.code] = true;
     }
 }
