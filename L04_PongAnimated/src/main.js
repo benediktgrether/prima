@@ -44,6 +44,7 @@ var L04_PongAnimated;
         if (keysPressed[ƒ.KEYBOARD_CODE.S]) {
             paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
         }
+        ball.cmpTransform.local.translate(new ƒ.Vector3(0.1, -0.1, 0));
         ƒ.RenderManager.update();
         viewport.draw();
     }

@@ -22,6 +22,7 @@ namespace L04_PongAnimated {
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
+        
 
         let pong: ƒ.Node = createPong();
 
@@ -67,6 +68,8 @@ namespace L04_PongAnimated {
             paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
         }
 
+        ball.cmpTransform.local.translate(new ƒ.Vector3(0.1, -0.1, 0) );
+        
         ƒ.RenderManager.update();
         viewport.draw();
     }
