@@ -16,12 +16,23 @@ namespace L04_PongAnimated {
     let paddleLeft: ƒ.Node =    new ƒ.Node("PaddleLeft");
     let paddleRight: ƒ.Node = new ƒ.Node("PaddleRight");
     
+    let ballTranslationX: number;
+    let ballTranslationY: number;
+    // let ballTranslationX: number = ball.cmpTransform.local.translation.x;
+    // let ballTranslationY: number = ball.cmpTransform.local.translation.y;
+    let ballPosX: number = 0;
+    let ballPosY: number = 0;
+    let ballVelocityX: number = generateRandomeValue();
+    let ballVelocityY: number = generateRandomeValue();
+    console.log(ballPosX);
+
     let keysPressed: KeyPressed = {};
     
     function handleLoad(_event: Event): void {
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
+
         
 
         let pong: ƒ.Node = createPong();
@@ -38,6 +49,7 @@ namespace L04_PongAnimated {
         viewport = new ƒ.Viewport();
         viewport.initialize("Viewport", pong, cmpCamera, canvas);
         ƒ.Debug.log(viewport);
+
 
         document.addEventListener("keydown", hndKeydown);
         document.addEventListener("keyup", hndKeyup);
@@ -68,10 +80,31 @@ namespace L04_PongAnimated {
             paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
         }
 
-        ball.cmpTransform.local.translate(new ƒ.Vector3(0.1, -0.1, 0) );
+        moveBall()
+        // console.log(ballPosX);
         
         ƒ.RenderManager.update();
         viewport.draw();
+    }
+
+    function moveBall(): void {
+
+        ball.cmpTransform.local.translate(new ƒ.Vector3(ballVelocityX, ballVelocityY, 0) );
+
+        ballTranslationX = ball.cmpTransform.local.translation.x;
+        ballTranslationY = ball.cmpTransform.local.translation.y;
+
+
+
+        if ( ballTranslationX < -20.8 || ballTranslationX > 20.8) {
+            ballVelocityX = -ballVelocityX;
+        }
+
+        if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
+            ballVelocityY = -ballVelocityY;
+        }
+
+
     }
 
     function createPong(): ƒ.Node {
@@ -94,6 +127,9 @@ namespace L04_PongAnimated {
         paddleLeft.addComponent(new ƒ.ComponentTransform);
         paddleRight.addComponent(new ƒ.ComponentTransform);
 
+        // ball.cmpTransform.local.translate( new ƒ.Vector3(-20.8, -13.7, 0) );
+        ƒ.Debug.log(ball.cmpTransform.local.translation.x );
+
         pong.appendChild(ball);
         pong.appendChild(paddleLeft);
         pong.appendChild(paddleRight);
@@ -108,5 +144,13 @@ namespace L04_PongAnimated {
 
     function hndKeydown(_event: KeyboardEvent): void {
         keysPressed[_event.code] = true;
+    }
+    
+    function generateRandomeValue(): number {
+        if (Math.random() <= 0.5) {
+            return Math.random() * (+0.3 - +0.05) + + 0.05;
+        } else {
+            return (Math.random() * (+0.3 - +0.05) + + 0.05) * -1;
+        }
     }
 }

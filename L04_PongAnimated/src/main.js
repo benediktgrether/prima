@@ -8,6 +8,15 @@ var L04_PongAnimated;
     var ball = new ƒ.Node("Ball");
     var paddleLeft = new ƒ.Node("PaddleLeft");
     var paddleRight = new ƒ.Node("PaddleRight");
+    var ballTranslationX;
+    var ballTranslationY;
+    // let ballTranslationX: number = ball.cmpTransform.local.translation.x;
+    // let ballTranslationY: number = ball.cmpTransform.local.translation.y;
+    var ballPosX = 0;
+    var ballPosY = 0;
+    var ballVelocityX = generateRandomeValue();
+    var ballVelocityY = generateRandomeValue();
+    console.log(ballPosX);
     var keysPressed = {};
     function handleLoad(_event) {
         var canvas = document.querySelector("canvas");
@@ -44,9 +53,21 @@ var L04_PongAnimated;
         if (keysPressed[ƒ.KEYBOARD_CODE.S]) {
             paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
         }
-        ball.cmpTransform.local.translate(new ƒ.Vector3(0.1, -0.1, 0));
+        moveBall();
+        // console.log(ballPosX);
         ƒ.RenderManager.update();
         viewport.draw();
+    }
+    function moveBall() {
+        ball.cmpTransform.local.translate(new ƒ.Vector3(ballVelocityX, ballVelocityY, 0));
+        ballTranslationX = ball.cmpTransform.local.translation.x;
+        ballTranslationY = ball.cmpTransform.local.translation.y;
+        if (ballTranslationX < -20.8 || ballTranslationX > 20.8) {
+            ballVelocityX = -ballVelocityX;
+        }
+        if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
+            ballVelocityY = -ballVelocityY;
+        }
     }
     function createPong() {
         var pong = new ƒ.Node("Pong");
@@ -62,6 +83,8 @@ var L04_PongAnimated;
         ball.addComponent(new ƒ.ComponentTransform);
         paddleLeft.addComponent(new ƒ.ComponentTransform);
         paddleRight.addComponent(new ƒ.ComponentTransform);
+        // ball.cmpTransform.local.translate( new ƒ.Vector3(-20.8, -13.7, 0) );
+        ƒ.Debug.log(ball.cmpTransform.local.translation.x);
         pong.appendChild(ball);
         pong.appendChild(paddleLeft);
         pong.appendChild(paddleRight);
@@ -72,5 +95,13 @@ var L04_PongAnimated;
     }
     function hndKeydown(_event) {
         keysPressed[_event.code] = true;
+    }
+    function generateRandomeValue() {
+        if (Math.random() <= 0.5) {
+            return Math.random() * (+0.3 - +0.05) + +0.05;
+        }
+        else {
+            return (Math.random() * (+0.3 - +0.05) + +0.05) * -1;
+        }
     }
 })(L04_PongAnimated || (L04_PongAnimated = {}));
