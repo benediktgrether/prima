@@ -16,6 +16,10 @@ var L04_PongAnimated;
     var ballPosY = 0;
     var ballVelocityX = generateRandomeValue();
     var ballVelocityY = generateRandomeValue();
+    var collisionRightTop = false;
+    var collisionRightBottom = false;
+    var collisionLeftTop = false;
+    var collisionLeftBottom = false;
     console.log(ballPosX);
     var keysPressed = {};
     function handleLoad(_event) {
@@ -42,16 +46,40 @@ var L04_PongAnimated;
     function update(_event) {
         // ƒ.Debug.log(keysPressed);
         if (keysPressed[ƒ.KEYBOARD_CODE.ARROW_UP]) {
-            paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
+            if (paddleRight.cmpTransform.local.translation.y < 12.2 && collisionRightTop === false) {
+                paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
+                collisionRightBottom = false;
+            }
+            else {
+                collisionRightTop = true;
+            }
         }
         if (keysPressed[ƒ.KEYBOARD_CODE.ARROW_DOWN]) {
-            paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
+            if (paddleRight.cmpTransform.local.translation.y > -12.2 && collisionRightBottom === false) {
+                paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
+                collisionRightTop = false;
+            }
+            else {
+                collisionRightBottom = true;
+            }
         }
         if (keysPressed[ƒ.KEYBOARD_CODE.W]) {
-            paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
+            if (paddleLeft.cmpTransform.local.translation.y < 12.2 && collisionLeftTop === false) {
+                paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
+                collisionLeftBottom = false;
+            }
+            else {
+                collisionLeftTop = true;
+            }
         }
         if (keysPressed[ƒ.KEYBOARD_CODE.S]) {
-            paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
+            if (paddleLeft.cmpTransform.local.translation.y > -12.2 && collisionLeftBottom === false) {
+                paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
+                collisionLeftTop = false;
+            }
+            else {
+                collisionLeftBottom = true;
+            }
         }
         moveBall();
         // console.log(ballPosX);
