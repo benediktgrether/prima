@@ -22,8 +22,11 @@ namespace L04_PongAnimated {
     // let ballTranslationY: number = ball.cmpTransform.local.translation.y;
     let ballPosX: number = 0;
     let ballPosY: number = 0;
-    let ballVelocityX: number = generateRandomeValue();
-    let ballVelocityY: number = generateRandomeValue();
+    // let ballVelocityX: number = generateRandomeValue();
+    // let ballVelocityY: number = generateRandomeValue();
+
+
+    let ballVelocity: ƒ.Vector3 =  new ƒ.Vector3(0.1, 0.1, 0);
 
     let collisionRightTop: boolean = false;
     let collisionRightBottom: boolean = false;
@@ -104,7 +107,7 @@ namespace L04_PongAnimated {
             }
         }
 
-        moveBall()
+        moveBall();
         // console.log(ballPosX);
         
         ƒ.RenderManager.update();
@@ -113,7 +116,7 @@ namespace L04_PongAnimated {
 
     function moveBall(): void {
 
-        ball.cmpTransform.local.translate(new ƒ.Vector3(ballVelocityX, ballVelocityY, 0) );
+        ball.cmpTransform.local.translate(ballVelocity);
 
         ballTranslationX = ball.cmpTransform.local.translation.x;
         ballTranslationY = ball.cmpTransform.local.translation.y;
@@ -121,13 +124,17 @@ namespace L04_PongAnimated {
 
 
         if ( ballTranslationX < -20.8 || ballTranslationX > 20.8) {
-            ballVelocityX = -ballVelocityX;
+            ballVelocity.x = -ballVelocity.x;
         }
 
         if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
-            ballVelocityY = -ballVelocityY;
+            ballVelocity.y = -ballVelocity.y;
         }
 
+        // if (ballTranslationX > paddleRight.cmpTransform.local.translation.x) {
+        //     ballVelocityY = -ballVelocityY;
+        //     console.log("Test");
+        // }
 
     }
 
@@ -168,13 +175,5 @@ namespace L04_PongAnimated {
 
     function hndKeydown(_event: KeyboardEvent): void {
         keysPressed[_event.code] = true;
-    }
-    
-    function generateRandomeValue(): number {
-        if (Math.random() <= 0.5) {
-            return Math.random() * (+0.3 - +0.05) + + 0.05;
-        } else {
-            return (Math.random() * (+0.3 - +0.05) + + 0.05) * -1;
-        }
     }
 }
