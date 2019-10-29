@@ -1,11 +1,17 @@
 # PRIMA
 
+[L04_PongAnimated](https://benediktgrether.github.io/prima/L04_PongAnimated/)
+[L03_PongPanel](https://benediktgrether.github.io/prima/L03_PongPanel/)
+[L02_FirstGamePong](https://benediktgrether.github.io/prima/L02_FirstGamePong/)
+[L02_FirstFudge](https://benediktgrether.github.io/prima/L02_FirstFudge/)
+[L01_HelloWorld](https://benediktgrether.github.io/prima/L01_HelloWorld/)
+
 ## Bis nächsten Donnerstag
 
 - [x] Coding Style
 - [x] TypeScript
-- [ ] DOM
-- [ ] Event-System
+- [x] DOM
+- [x] Event-System
 
 ## TypeScript Fragen
 
@@ -26,5 +32,5 @@ Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein ge
 
 ## To Do Pong
 
-- [] Ball soll sich mit verschiedener Geschwindigkeit starten (Vector 3)
-- [] An allen vier Wänden wieder abprallen.
+- [x] Ball soll sich mit verschiedener Geschwindigkeit starten (Vector 3)
+- [x] An allen vier Wänden wieder abprallen.
