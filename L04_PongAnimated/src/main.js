@@ -10,18 +10,11 @@ var L04_PongAnimated;
     var paddleRight = new ƒ.Node("PaddleRight");
     var ballTranslationX;
     var ballTranslationY;
-    // let ballTranslationX: number = ball.cmpTransform.local.translation.x;
-    // let ballTranslationY: number = ball.cmpTransform.local.translation.y;
-    var ballPosX = 0;
-    var ballPosY = 0;
-    // let ballVelocityX: number = generateRandomeValue();
-    // let ballVelocityY: number = generateRandomeValue();
-    var ballVelocity = new ƒ.Vector3(0.1, 0.1, 0);
+    var ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
     var collisionRightTop = false;
     var collisionRightBottom = false;
     var collisionLeftTop = false;
     var collisionLeftBottom = false;
-    console.log(ballPosX);
     var keysPressed = {};
     function handleLoad(_event) {
         var canvas = document.querySelector("canvas");
@@ -128,5 +121,13 @@ var L04_PongAnimated;
     }
     function hndKeydown(_event) {
         keysPressed[_event.code] = true;
+    }
+    function generateRandomeValue() {
+        if (Math.random() <= 0.5) {
+            return Math.random() * (+0.3 - +0.05) + +0.05;
+        }
+        else {
+            return (Math.random() * (+0.3 - +0.05) + +0.05) * -1;
+        }
     }
 })(L04_PongAnimated || (L04_PongAnimated = {}));

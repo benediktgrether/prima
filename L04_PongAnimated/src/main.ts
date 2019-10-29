@@ -18,22 +18,13 @@ namespace L04_PongAnimated {
     
     let ballTranslationX: number;
     let ballTranslationY: number;
-    // let ballTranslationX: number = ball.cmpTransform.local.translation.x;
-    // let ballTranslationY: number = ball.cmpTransform.local.translation.y;
-    let ballPosX: number = 0;
-    let ballPosY: number = 0;
-    // let ballVelocityX: number = generateRandomeValue();
-    // let ballVelocityY: number = generateRandomeValue();
 
-
-    let ballVelocity: ƒ.Vector3 =  new ƒ.Vector3(0.1, 0.1, 0);
+    let ballVelocity: ƒ.Vector3 =  new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
 
     let collisionRightTop: boolean = false;
     let collisionRightBottom: boolean = false;
     let collisionLeftTop: boolean = false;
     let collisionLeftBottom: boolean = false;
-
-    console.log(ballPosX);
 
     let keysPressed: KeyPressed = {};
     
@@ -175,5 +166,13 @@ namespace L04_PongAnimated {
 
     function hndKeydown(_event: KeyboardEvent): void {
         keysPressed[_event.code] = true;
+    }
+    
+    function generateRandomeValue(): number {
+        if (Math.random() <= 0.5) {
+            return Math.random() * (+0.3 - +0.05) + + 0.05;
+        } else {
+            return (Math.random() * (+0.3 - +0.05) + + 0.05) * -1;
+        }
     }
 }
