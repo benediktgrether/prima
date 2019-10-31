@@ -75,38 +75,63 @@ var L05_PongCollision;
                 collisionLeftBottom = true;
             }
         }
+        var hit = false;
         for (var _i = 0, _a = pong.getChildren(); _i < _a.length; _i++) {
-            var i = _a[_i];
-            if (i.name != "Ball") {
-                sclRect = i.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
-                posRect = i.cmpTransform.local.translation.copy;
-                var hit = detectHit(ball.cmpTransform.local.translation, posRect, sclRect);
-                // console.log(hit);
-                if (!hit) {
-                    moveBall();
-                }
-                else {
-                    ballVelocity.x = -ballVelocity.x;
-                }
+            var node = _a[_i];
+            if (node.name == "Ball")
+                continue;
+            hit = detectHit(ball.cmpTransform.local.translation, node);
+            if (hit) {
+                processHit(node);
+                break;
             }
+            // console.log(hit);
         }
-        function detectHit(_position, _posRect, _sclRect) {
-            var rect = new ƒ.Rectangle(_posRect.x, _posRect.y, _sclRect.x, _sclRect.y, ƒ.ORIGIN2D.CENTER);
-            return rect.isInside(_position.toVector2());
-        }
-        function moveBall() {
-            ball.cmpTransform.local.translate(ballVelocity);
+        if (!hit) {
+            moveBall();
         }
         ƒ.RenderManager.update();
         viewport.draw();
     }
+    function detectHit(_position, _node) {
+        sclRect = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        posRect = _node.cmpTransform.local.translation.copy;
+        var rect = new ƒ.Rectangle(posRect.x, posRect.y, sclRect.x, sclRect.y, ƒ.ORIGIN2D.CENTER);
+        return rect.isInside(_position.toVector2());
+    }
+    function processHit(_node) {
+        switch (_node.name) {
+            case "WallTop":
+                ballVelocity.y *= -1;
+                break;
+            case "WallBottom":
+                ballVelocity.y *= -1;
+                break;
+            case "WallRight":
+            case "WallLeft":
+                ballVelocity.x *= -1;
+                break;
+            case "PaddleLeft":
+                ballVelocity.x *= -1;
+                break;
+            case "PaddleRight":
+                ballVelocity.x *= -1;
+                break;
+            default:
+                console.warn("Oh, no, I hit something unknow!!", _node.name);
+                break;
+        }
+    }
+    function moveBall() {
+        ball.cmpTransform.local.translate(ballVelocity);
+    }
     function createPong() {
         var meshQuad = new ƒ.MeshQuad();
         var mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
-        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(-22, 0), new ƒ.Vector2(1, 30)));
-        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(22, 0), new ƒ.Vector2(1, 30)));
-        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, 15), new ƒ.Vector2(45, 1)));
-        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, -15), new ƒ.Vector2(45, 1)));
+        pong.appendChild(createNode("WallLeft", meshQuad, mtrSolidWhite, new ƒ.Vector2(-22, 0), new ƒ.Vector2(1, 30)));
+        pong.appendChild(createNode("WallRight", meshQuad, mtrSolidWhite, new ƒ.Vector2(22, 0), new ƒ.Vector2(1, 30)));
+        pong.appendChild(createNode("WallTop", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, 15), new ƒ.Vector2(45, 1)));
+        pong.appendChild(createNode("WallBottom", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, -15), new ƒ.Vector2(45, 1)));
         ball = createNode("Ball", meshQuad, mtrSolidWhite, ƒ.Vector2.ZERO, new ƒ.Vector2(1, 1));
         paddleLeft = createNode("PaddleLeft", meshQuad, mtrSolidWhite, new ƒ.Vector2(-18, 0), new ƒ.Vector2(1, 4));
         paddleRight = createNode("PaddleRight", meshQuad, mtrSolidWhite, new ƒ.Vector2(18, 0), new ƒ.Vector2(1, 4));
@@ -133,10 +158,10 @@ var L05_PongCollision;
     }
     function generateRandomeValue() {
         if (Math.random() <= 0.5) {
-            return Math.random() * (+0.003 - +0.0005) + +0.05;
+            return Math.random() * (+0.3 - +0.05) + +0.05;
         }
         else {
-            return (Math.random() * (+0.03 - +0.005) + +0.005) * -1;
+            return (Math.random() * (+0.3 - +0.05) + +0.05) * -1;
         }
     }
 })(L05_PongCollision || (L05_PongCollision = {}));

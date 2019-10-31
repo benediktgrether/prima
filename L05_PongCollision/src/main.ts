@@ -1,6 +1,6 @@
 ///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 namespace L05_PongCollision {
-    
+
     interface KeyPressed {
         [code: string]: boolean;
     }
@@ -16,13 +16,13 @@ namespace L05_PongCollision {
     let ball: ƒ.Node;
     let paddleLeft: ƒ.Node;
     let paddleRight: ƒ.Node;
-    
+
 
     let posRect: ƒ.Vector3;
     let sclRect: ƒ.Vector3;
-    
 
-    let ballVelocity: ƒ.Vector3 =  new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
+
+    let ballVelocity: ƒ.Vector3 = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
 
     let collisionRightTop: boolean = false;
     let collisionRightBottom: boolean = false;
@@ -30,7 +30,7 @@ namespace L05_PongCollision {
     let collisionLeftBottom: boolean = false;
 
     let keysPressed: KeyPressed = {};
-    
+
     function handleLoad(_event: Event): void {
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
@@ -60,70 +60,95 @@ namespace L05_PongCollision {
     function update(_event: Event): void {
         // ƒ.Debug.log(keysPressed);
 
-        if ( keysPressed[ƒ.KEYBOARD_CODE.ARROW_UP] ) {
+        if (keysPressed[ƒ.KEYBOARD_CODE.ARROW_UP]) {
             if (paddleRight.cmpTransform.local.translation.y < 12.2 && collisionRightTop === false) {
                 paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
                 collisionRightBottom = false;
             } else {
                 collisionRightTop = true;
             }
-        } 
-        if ( keysPressed[ƒ.KEYBOARD_CODE.ARROW_DOWN] ) {
-            if (paddleRight.cmpTransform.local.translation.y > -12.2  && collisionRightBottom === false) {
+        }
+        if (keysPressed[ƒ.KEYBOARD_CODE.ARROW_DOWN]) {
+            if (paddleRight.cmpTransform.local.translation.y > -12.2 && collisionRightBottom === false) {
                 paddleRight.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
-                collisionRightTop = false;   
+                collisionRightTop = false;
             } else {
                 collisionRightBottom = true;
             }
 
-        } 
-        if ( keysPressed[ƒ.KEYBOARD_CODE.ARROW_LEFT] ) {
+        }
+        if (keysPressed[ƒ.KEYBOARD_CODE.ARROW_LEFT]) {
             paddleRight.cmpTransform.local.translate(new ƒ.Vector3(-0.3, 0, 0));
         }
-        if ( keysPressed[ƒ.KEYBOARD_CODE.W]) {
+        if (keysPressed[ƒ.KEYBOARD_CODE.W]) {
             if (paddleLeft.cmpTransform.local.translation.y < 12.2 && collisionLeftTop === false) {
                 paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
                 collisionLeftBottom = false;
             } else {
                 collisionLeftTop = true;
             }
-        } 
-        if ( keysPressed[ƒ.KEYBOARD_CODE.S]) {
+        }
+        if (keysPressed[ƒ.KEYBOARD_CODE.S]) {
             if (paddleLeft.cmpTransform.local.translation.y > -12.2 && collisionLeftBottom === false) {
                 paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, -0.3, 0));
-                collisionLeftTop = false;  
+                collisionLeftTop = false;
             } else {
                 collisionLeftBottom = true;
             }
         }
 
-        for (let i of pong.getChildren()) {
-            if ( i.name != "Ball") {
-                sclRect = i.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
-                posRect = i.cmpTransform.local.translation.copy ;
-                
-                let hit: boolean = detectHit(ball.cmpTransform.local.translation, posRect, sclRect);
-                // console.log(hit);
-                if (!hit) {
-                    moveBall();
-                } else {
-                    ballVelocity.x = -ballVelocity.x;
-                }
+        let hit: boolean = false;
+        for (let node of pong.getChildren()) {
+            if (node.name == "Ball")
+                continue;
+            hit = detectHit(ball.cmpTransform.local.translation, node);
+
+            if (hit) {
+                processHit(node);
+                break;
             }
+            // console.log(hit);
         }
-
-        function detectHit(_position: ƒ.Vector3, _posRect: ƒ.Vector3, _sclRect: ƒ.Vector3): boolean {
-
-            let rect: ƒ.Rectangle = new ƒ.Rectangle(_posRect.x, _posRect.y, _sclRect.x, _sclRect.y, ƒ.ORIGIN2D.CENTER);
-            return rect.isInside(_position.toVector2());
+        if (!hit) {
+            moveBall();
         }
-    
-        function moveBall(): void {
-            ball.cmpTransform.local.translate(ballVelocity);
-        }
-
         ƒ.RenderManager.update();
         viewport.draw();
+    }
+
+    function detectHit(_position: ƒ.Vector3, _node: ƒ.Node): boolean {
+        sclRect = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        posRect = _node.cmpTransform.local.translation.copy;
+        let rect: ƒ.Rectangle = new ƒ.Rectangle(posRect.x, posRect.y, sclRect.x, sclRect.y, ƒ.ORIGIN2D.CENTER);
+        return rect.isInside(_position.toVector2());
+    }
+
+    function processHit(_node: ƒ.Node): void {
+        switch (_node.name) {
+            case "WallTop":
+                ballVelocity.y *= -1;
+                break;
+            case "WallBottom":
+                ballVelocity.y *= -1;
+                break;
+            case "WallRight":
+            case "WallLeft":
+                ballVelocity.x *= -1;
+                break;
+            case "PaddleLeft":
+                ballVelocity.x *= -1;
+                break;
+            case "PaddleRight":
+                ballVelocity.x *= -1;
+                break;
+            default:
+                console.warn("Oh, no, I hit something unknow!!", _node.name);
+                break;
+        }
+    }
+
+    function moveBall(): void {
+        ball.cmpTransform.local.translate(ballVelocity);
     }
 
     function createPong(): ƒ.Node {
@@ -131,17 +156,17 @@ namespace L05_PongCollision {
         let meshQuad: ƒ.MeshQuad = new ƒ.MeshQuad();
         let mtrSolidWhite: ƒ.Material = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
 
-        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(-22, 0), new ƒ.Vector2(1, 30)));
-        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(22, 0), new ƒ.Vector2(1, 30)));
-        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, 15), new ƒ.Vector2(45, 1)));
-        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, -15), new ƒ.Vector2(45, 1)));
+        pong.appendChild(createNode("WallLeft", meshQuad, mtrSolidWhite, new ƒ.Vector2(-22, 0), new ƒ.Vector2(1, 30)));
+        pong.appendChild(createNode("WallRight", meshQuad, mtrSolidWhite, new ƒ.Vector2(22, 0), new ƒ.Vector2(1, 30)));
+        pong.appendChild(createNode("WallTop", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, 15), new ƒ.Vector2(45, 1)));
+        pong.appendChild(createNode("WallBottom", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, -15), new ƒ.Vector2(45, 1)));
 
 
         ball = createNode("Ball", meshQuad, mtrSolidWhite, ƒ.Vector2.ZERO, new ƒ.Vector2(1, 1));
         paddleLeft = createNode("PaddleLeft", meshQuad, mtrSolidWhite, new ƒ.Vector2(-18, 0), new ƒ.Vector2(1, 4));
         paddleRight = createNode("PaddleRight", meshQuad, mtrSolidWhite, new ƒ.Vector2(18, 0), new ƒ.Vector2(1, 4));
 
-        ƒ.Debug.log(ball.cmpTransform.local.translation.x );
+        ƒ.Debug.log(ball.cmpTransform.local.translation.x);
 
         pong.appendChild(ball);
         pong.appendChild(paddleLeft);
@@ -150,15 +175,15 @@ namespace L05_PongCollision {
         return pong;
     }
 
-    function createNode( _name: string, _mesh: ƒ.Mesh, _material: ƒ.Material, _translation: ƒ.Vector2, _scaling: ƒ.Vector2): ƒ.Node {
-        
+    function createNode(_name: string, _mesh: ƒ.Mesh, _material: ƒ.Material, _translation: ƒ.Vector2, _scaling: ƒ.Vector2): ƒ.Node {
+
         let node: ƒ.Node = new ƒ.Node(_name);
         node.addComponent(new ƒ.ComponentTransform);
         node.addComponent(new ƒ.ComponentMaterial(_material));
         node.addComponent(new ƒ.ComponentMesh(_mesh));
         node.cmpTransform.local.translate(_translation.toVector3());
         node.getComponent(ƒ.ComponentMesh).pivot.scale(_scaling.toVector3());
-        
+
         return node;
     }
 
@@ -170,12 +195,12 @@ namespace L05_PongCollision {
     function hndKeydown(_event: KeyboardEvent): void {
         keysPressed[_event.code] = true;
     }
-    
+
     function generateRandomeValue(): number {
         if (Math.random() <= 0.5) {
-            return Math.random() * (+0.003 - +0.0005) + + 0.05;
+            return Math.random() * (+0.3 - +0.05) + + 0.05;
         } else {
-            return (Math.random() * (+0.03 - +0.005) + + 0.005) * -1;
+            return (Math.random() * (+0.3 - +0.05) + + 0.05) * -1;
         }
     }
 }
