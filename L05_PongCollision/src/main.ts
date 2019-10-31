@@ -16,10 +16,8 @@ namespace L05_PongCollision {
     let paddleLeft: ƒ.Node =    new ƒ.Node("PaddleLeft");
     let paddleRight: ƒ.Node = new ƒ.Node("PaddleRight");
     
-    let ballTranslationX: number;
-    let ballTranslationY: number;
 
-    let ballVelocity: ƒ.Vector3 =  new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
+    let ballVelocity: ƒ.Vector3 =  new ƒ.Vector3(generateRandomeValue(), 0, 0);
 
     let collisionRightTop: boolean = false;
     let collisionRightBottom: boolean = false;
@@ -56,6 +54,7 @@ namespace L05_PongCollision {
 
         viewport.draw();
 
+
         // FUDGE Core Game Loop and Starting the Loop
         ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
         ƒ.Loop.start();
@@ -81,6 +80,9 @@ namespace L05_PongCollision {
             }
 
         } 
+        if ( keysPressed[ƒ.KEYBOARD_CODE.ARROW_LEFT] ) {
+            paddleRight.cmpTransform.local.translate(new ƒ.Vector3(-0.3, 0, 0));
+        }
         if ( keysPressed[ƒ.KEYBOARD_CODE.W]) {
             if (paddleLeft.cmpTransform.local.translation.y < 12.2 && collisionLeftTop === false) {
                 paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
@@ -98,36 +100,77 @@ namespace L05_PongCollision {
             }
         }
 
-        moveBall();
+
+        let sclRectRight: ƒ.Vector3 = paddleRight.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        let posRectRight: ƒ.Vector3 = paddleRight.cmpTransform.local.translation.copy ;
+        
+        let sclRectLeft: ƒ.Vector3 = paddleLeft.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        let posRectLeft: ƒ.Vector3 = paddleLeft.cmpTransform.local.translation.copy ;
+
+        let hit: boolean = detectHit(ball.cmpTransform.local.translation, posRectRight, sclRectRight, posRectLeft, sclRectLeft);
+        // console.log(hit);
+        if (!hit) {
+             moveBall();
+            } else {
+                ballVelocity.x = - ballVelocity.x;
+                ball.cmpTransform.local.translate(ballVelocity);
+            }
+
+
+        function detectHit(_position: ƒ.Vector3, _posRectRight: ƒ.Vector3, _sclRectRight: ƒ.Vector3, _posRectLeft: ƒ.Vector3, _sclRectLeft: ƒ.Vector3): boolean {
+
+            let rectRight: ƒ.Rectangle = new ƒ.Rectangle(_posRectRight.x, _posRectRight.y, _sclRectRight.x, _sclRectRight.y, ƒ.ORIGIN2D.CENTER); 
+
+            let rectLeft: ƒ.Rectangle = new ƒ.Rectangle(_posRectLeft.x, _posRectLeft.y, _sclRectLeft.x, _sclRectLeft.y, ƒ.ORIGIN2D.CENTER); 
+
+            // console.log(rectRight, rectLeft);
+
+            if (rectRight.isInside(_position.getVector2()) == true) {
+                return rectRight.isInside(_position.getVector2());
+            }
+            if (rectLeft.isInside(_position.getVector2()) == true) {
+                return rectLeft.isInside(_position.getVector2());
+            }
+            
+            // return rectRight.isInside(_position.getVector2());
+        }
+    
+        function moveBall(): void {
+            ball.cmpTransform.local.translate(ballVelocity);
+        }
+
+        // console.log(detectHit(ball.cmpTransform.local.translation, paddleRight.cmpTransform.local));
+        // moveBall();
         // console.log(ballPosX);
         
         ƒ.RenderManager.update();
         viewport.draw();
     }
 
-    function moveBall(): void {
+    // function moveBall(): void {
 
-        ball.cmpTransform.local.translate(ballVelocity);
+    //     ball.cmpTransform.local.translate(ballVelocity);
 
-        ballTranslationX = ball.cmpTransform.local.translation.x;
-        ballTranslationY = ball.cmpTransform.local.translation.y;
+    //     ballTranslationX = ball.cmpTransform.local.translation.x;
+    //     ballTranslationY = ball.cmpTransform.local.translation.y;
 
 
 
-        if ( ballTranslationX < -20.8 || ballTranslationX > 20.8) {
-            ballVelocity.x = -ballVelocity.x;
-        }
+    //     if ( ballTranslationX < -20.8 || ballTranslationX > 20.8) {
+    //         ballVelocity.x = -ballVelocity.x;
+    //     }
 
-        if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
-            ballVelocity.y = -ballVelocity.y;
-        }
+    //     if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
+    //         ballVelocity.y = -ballVelocity.y;
+    //     }
 
-        // if (ballTranslationX > paddleRight.cmpTransform.local.translation.x) {
-        //     ballVelocityY = -ballVelocityY;
-        //     console.log("Test");
-        // }
+    //     // if (ballTranslationX > paddleRight.cmpTransform.local.translation.x) {
+    //     //     ballVelocityY = -ballVelocityY;
+    //     //     console.log("Test");
+    //     // }
 
-    }
+    // }
+
 
     function createPong(): ƒ.Node {
         let pong: ƒ.Node = new ƒ.Node("Pong");

@@ -1,6 +1,6 @@
 ///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
-var L04_PongAnimated;
-(function (L04_PongAnimated) {
+var L05_PongCollision;
+(function (L05_PongCollision) {
     var ƒ = FudgeCore;
     window.addEventListener("load", handleLoad);
     // What do the viewport?
@@ -8,9 +8,7 @@ var L04_PongAnimated;
     var ball = new ƒ.Node("Ball");
     var paddleLeft = new ƒ.Node("PaddleLeft");
     var paddleRight = new ƒ.Node("PaddleRight");
-    var ballTranslationX;
-    var ballTranslationY;
-    var ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
+    var ballVelocity = new ƒ.Vector3(generateRandomeValue(), 0, 0);
     var collisionRightTop = false;
     var collisionRightBottom = false;
     var collisionLeftTop = false;
@@ -57,6 +55,9 @@ var L04_PongAnimated;
                 collisionRightBottom = true;
             }
         }
+        if (keysPressed[ƒ.KEYBOARD_CODE.ARROW_LEFT]) {
+            paddleRight.cmpTransform.local.translate(new ƒ.Vector3(-0.3, 0, 0));
+        }
         if (keysPressed[ƒ.KEYBOARD_CODE.W]) {
             if (paddleLeft.cmpTransform.local.translation.y < 12.2 && collisionLeftTop === false) {
                 paddleLeft.cmpTransform.local.translate(new ƒ.Vector3(0, 0.3, 0));
@@ -75,26 +76,55 @@ var L04_PongAnimated;
                 collisionLeftBottom = true;
             }
         }
-        moveBall();
+        var sclRectRight = paddleRight.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        var posRectRight = paddleRight.cmpTransform.local.translation.copy;
+        var sclRectLeft = paddleLeft.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        var posRectLeft = paddleLeft.cmpTransform.local.translation.copy;
+        var hit = detectHit(ball.cmpTransform.local.translation, posRectRight, sclRectRight, posRectLeft, sclRectLeft);
+        // console.log(hit);
+        if (!hit) {
+            moveBall();
+        }
+        else {
+            ballVelocity.x = -ballVelocity.x;
+            ball.cmpTransform.local.translate(ballVelocity);
+        }
+        function detectHit(_position, _posRectRight, _sclRectRight, _posRectLeft, _sclRectLeft) {
+            var rectRight = new ƒ.Rectangle(_posRectRight.x, _posRectRight.y, _sclRectRight.x, _sclRectRight.y, ƒ.ORIGIN2D.CENTER);
+            var rectLeft = new ƒ.Rectangle(_posRectLeft.x, _posRectLeft.y, _sclRectLeft.x, _sclRectLeft.y, ƒ.ORIGIN2D.CENTER);
+            // console.log(rectRight, rectLeft);
+            if (rectRight.isInside(_position.getVector2()) == true) {
+                return rectRight.isInside(_position.getVector2());
+            }
+            if (rectLeft.isInside(_position.getVector2()) == true) {
+                return rectLeft.isInside(_position.getVector2());
+            }
+            // return rectRight.isInside(_position.getVector2());
+        }
+        function moveBall() {
+            ball.cmpTransform.local.translate(ballVelocity);
+        }
+        // console.log(detectHit(ball.cmpTransform.local.translation, paddleRight.cmpTransform.local));
+        // moveBall();
         // console.log(ballPosX);
         ƒ.RenderManager.update();
         viewport.draw();
     }
-    function moveBall() {
-        ball.cmpTransform.local.translate(ballVelocity);
-        ballTranslationX = ball.cmpTransform.local.translation.x;
-        ballTranslationY = ball.cmpTransform.local.translation.y;
-        if (ballTranslationX < -20.8 || ballTranslationX > 20.8) {
-            ballVelocity.x = -ballVelocity.x;
-        }
-        if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
-            ballVelocity.y = -ballVelocity.y;
-        }
-        // if (ballTranslationX > paddleRight.cmpTransform.local.translation.x) {
-        //     ballVelocityY = -ballVelocityY;
-        //     console.log("Test");
-        // }
-    }
+    // function moveBall(): void {
+    //     ball.cmpTransform.local.translate(ballVelocity);
+    //     ballTranslationX = ball.cmpTransform.local.translation.x;
+    //     ballTranslationY = ball.cmpTransform.local.translation.y;
+    //     if ( ballTranslationX < -20.8 || ballTranslationX > 20.8) {
+    //         ballVelocity.x = -ballVelocity.x;
+    //     }
+    //     if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
+    //         ballVelocity.y = -ballVelocity.y;
+    //     }
+    //     // if (ballTranslationX > paddleRight.cmpTransform.local.translation.x) {
+    //     //     ballVelocityY = -ballVelocityY;
+    //     //     console.log("Test");
+    //     // }
+    // }
     function createPong() {
         var pong = new ƒ.Node("Pong");
         var meshQuad = new ƒ.MeshQuad();
@@ -130,4 +160,4 @@ var L04_PongAnimated;
             return (Math.random() * (+0.3 - +0.05) + +0.05) * -1;
         }
     }
-})(L04_PongAnimated || (L04_PongAnimated = {}));
+})(L05_PongCollision || (L05_PongCollision = {}));
