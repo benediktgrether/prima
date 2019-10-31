@@ -1,20 +1,23 @@
+"use strict";
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 var L02_FirstFudge;
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 (function (L02_FirstFudge) {
     var ƒ = FudgeCore;
     window.addEventListener("load", handleLoad);
     function handleLoad(_event) {
-        var canvas = document.querySelector("canvas");
+        const canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
         // New Node for Quad
-        var node = new ƒ.Node("Quad");
-        var mesh = new ƒ.MeshQuad();
-        var cmpMesh = new ƒ.ComponentMesh(mesh);
+        let node = new ƒ.Node("Quad");
+        let mesh = new ƒ.MeshQuad();
+        let cmpMesh = new ƒ.ComponentMesh(mesh);
         node.addComponent(cmpMesh);
-        var mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(ƒ.Color.WHITE));
-        var cmpMaterial = new ƒ.ComponentMaterial(mtrSolidWhite);
+        let mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(ƒ.Color.WHITE));
+        let cmpMaterial = new ƒ.ComponentMaterial(mtrSolidWhite);
         node.addComponent(cmpMaterial);
-        var cmpCamera = new ƒ.ComponentCamera();
+        let cmpCamera = new ƒ.ComponentCamera();
         cmpCamera.pivot.translateZ(2);
         L02_FirstFudge.viewport = new ƒ.Viewport();
         L02_FirstFudge.viewport.initialize("Viewport", node, cmpCamera, canvas);
@@ -22,3 +25,4 @@ var L02_FirstFudge;
         L02_FirstFudge.viewport.draw();
     }
 })(L02_FirstFudge || (L02_FirstFudge = {}));
+//# sourceMappingURL=main.js.map

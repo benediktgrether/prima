@@ -1,17 +1,19 @@
+"use strict";
 ///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 var L03_PongPanel;
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 (function (L03_PongPanel) {
     var ƒ = FudgeCore;
     window.addEventListener("load", handleLoad);
-    var ball = new ƒ.Node("Ball");
-    var paddleLeft = new ƒ.Node("PaddleLeft");
-    var paddleRight = new ƒ.Node("PaddleRight");
+    let ball = new ƒ.Node("Ball");
+    let paddleLeft = new ƒ.Node("PaddleLeft");
+    let paddleRight = new ƒ.Node("PaddleRight");
     function handleLoad(_event) {
-        var canvas = document.querySelector("canvas");
+        const canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
-        var pong = createPong();
-        var cmpCamera = new ƒ.ComponentCamera();
+        let pong = createPong();
+        let cmpCamera = new ƒ.ComponentCamera();
         cmpCamera.pivot.translateZ(42);
         paddleRight.cmpTransform.local.translateX(20);
         paddleLeft.cmpTransform.local.translateX(-20);
@@ -31,9 +33,9 @@ var L03_PongPanel;
         L03_PongPanel.viewport.draw();
     }
     function createPong() {
-        var pong = new ƒ.Node("Pong");
-        var meshQuad = new ƒ.MeshQuad();
-        var mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
+        let pong = new ƒ.Node("Pong");
+        let meshQuad = new ƒ.MeshQuad();
+        let mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
         ball.addComponent(new ƒ.ComponentMesh(meshQuad));
         paddleLeft.addComponent(new ƒ.ComponentMesh(meshQuad));
         paddleRight.addComponent(new ƒ.ComponentMesh(meshQuad));
@@ -66,3 +68,4 @@ var L03_PongPanel;
         }
     }
 })(L03_PongPanel || (L03_PongPanel = {}));
+//# sourceMappingURL=main.js.map

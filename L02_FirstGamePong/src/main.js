@@ -1,38 +1,39 @@
+"use strict";
 var L02_FirstGamePong;
 (function (L02_FirstGamePong) {
     var ƒ = FudgeCore;
     window.addEventListener("load", hndLoad);
     function hndLoad(_event) {
-        var canvas = document.querySelector("canvas");
+        let canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
         console.log(canvas);
         // Initialize Player Nodes
-        var playerOneNode = new ƒ.Node("Quad");
-        var playerTwoNode = new ƒ.Node("Quad");
-        var playBallNode = new ƒ.Node("Quad");
+        let playerOneNode = new ƒ.Node("Quad");
+        let playerTwoNode = new ƒ.Node("Quad");
+        let playBallNode = new ƒ.Node("Quad");
         // Create Mesh and change the mesh to Component
-        var playerOneMesh = new ƒ.MeshQuad();
-        var cmpPlayerOneMesh = new ƒ.ComponentMesh(playerOneMesh);
+        let playerOneMesh = new ƒ.MeshQuad();
+        let cmpPlayerOneMesh = new ƒ.ComponentMesh(playerOneMesh);
         cmpPlayerOneMesh.pivot.scaleX(0.1);
         cmpPlayerOneMesh.pivot.scaleY(0.4);
         cmpPlayerOneMesh.pivot.translateX(1);
-        var playerTwoMesh = new ƒ.MeshQuad();
-        var cmpPlayerTwoMesh = new ƒ.ComponentMesh(playerTwoMesh);
+        let playerTwoMesh = new ƒ.MeshQuad();
+        let cmpPlayerTwoMesh = new ƒ.ComponentMesh(playerTwoMesh);
         cmpPlayerTwoMesh.pivot.scaleX(0.1);
         cmpPlayerTwoMesh.pivot.scaleY(0.4);
         cmpPlayerTwoMesh.pivot.translateX(-1);
-        var playBallMesh = new ƒ.MeshQuad();
-        var cmpPlayBallMesh = new ƒ.ComponentMesh(playBallMesh);
+        let playBallMesh = new ƒ.MeshQuad();
+        let cmpPlayBallMesh = new ƒ.ComponentMesh(playBallMesh);
         cmpPlayBallMesh.pivot.scaleX(0.1);
         cmpPlayBallMesh.pivot.scaleY(0.1);
         // Create Material and change Material to Component
-        var playerOneMaterial = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 0, 0, 1)));
-        var cmpPlayerOneMaterial = new ƒ.ComponentMaterial(playerOneMaterial);
-        var playerTwoMaterial = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 0, 0, 1)));
-        var cmpPlayerTwoMaterial = new ƒ.ComponentMaterial(playerTwoMaterial);
-        var playBallMaterial = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 0, 0, 1)));
-        var cmpPlayBallMaterial = new ƒ.ComponentMaterial(playBallMaterial);
+        let playerOneMaterial = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 0, 0, 1)));
+        let cmpPlayerOneMaterial = new ƒ.ComponentMaterial(playerOneMaterial);
+        let playerTwoMaterial = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 0, 0, 1)));
+        let cmpPlayerTwoMaterial = new ƒ.ComponentMaterial(playerTwoMaterial);
+        let playBallMaterial = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 0, 0, 1)));
+        let cmpPlayBallMaterial = new ƒ.ComponentMaterial(playBallMaterial);
         // Link Component with Player One Node
         playerOneNode.addComponent(cmpPlayerOneMesh);
         playerOneNode.addComponent(cmpPlayerOneMaterial);
@@ -64,11 +65,12 @@ var L02_FirstGamePong;
         };
         // 
         // Add Camera Component
-        var cmpCamera = new ƒ.ComponentCamera();
-        var viewport = new ƒ.Viewport;
+        let cmpCamera = new ƒ.ComponentCamera();
+        let viewport = new ƒ.Viewport;
         viewport.initialize("camrea", playerOneNode, cmpCamera, canvas);
         viewport.camera.pivot.translateZ(2);
         ƒ.Debug.log(viewport);
         viewport.draw();
     }
 })(L02_FirstGamePong || (L02_FirstGamePong = {}));
+//# sourceMappingURL=main.js.map

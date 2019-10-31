@@ -1,27 +1,29 @@
+"use strict";
 ///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 var L04_PongAnimated;
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 (function (L04_PongAnimated) {
     var ƒ = FudgeCore;
     window.addEventListener("load", handleLoad);
     // What do the viewport?
-    var viewport;
-    var ball = new ƒ.Node("Ball");
-    var paddleLeft = new ƒ.Node("PaddleLeft");
-    var paddleRight = new ƒ.Node("PaddleRight");
-    var ballTranslationX;
-    var ballTranslationY;
-    var ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
-    var collisionRightTop = false;
-    var collisionRightBottom = false;
-    var collisionLeftTop = false;
-    var collisionLeftBottom = false;
-    var keysPressed = {};
+    let viewport;
+    let ball = new ƒ.Node("Ball");
+    let paddleLeft = new ƒ.Node("PaddleLeft");
+    let paddleRight = new ƒ.Node("PaddleRight");
+    let ballTranslationX;
+    let ballTranslationY;
+    let ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
+    let collisionRightTop = false;
+    let collisionRightBottom = false;
+    let collisionLeftTop = false;
+    let collisionLeftBottom = false;
+    let keysPressed = {};
     function handleLoad(_event) {
-        var canvas = document.querySelector("canvas");
+        const canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
-        var pong = createPong();
-        var cmpCamera = new ƒ.ComponentCamera();
+        let pong = createPong();
+        let cmpCamera = new ƒ.ComponentCamera();
         cmpCamera.pivot.translateZ(42);
         paddleRight.cmpTransform.local.translateX(20);
         paddleLeft.cmpTransform.local.translateX(-20);
@@ -96,9 +98,9 @@ var L04_PongAnimated;
         // }
     }
     function createPong() {
-        var pong = new ƒ.Node("Pong");
-        var meshQuad = new ƒ.MeshQuad();
-        var mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
+        let pong = new ƒ.Node("Pong");
+        let meshQuad = new ƒ.MeshQuad();
+        let mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
         ball.addComponent(new ƒ.ComponentMesh(meshQuad));
         paddleLeft.addComponent(new ƒ.ComponentMesh(meshQuad));
         paddleRight.addComponent(new ƒ.ComponentMesh(meshQuad));
@@ -131,3 +133,4 @@ var L04_PongAnimated;
         }
     }
 })(L04_PongAnimated || (L04_PongAnimated = {}));
+//# sourceMappingURL=main.js.map
