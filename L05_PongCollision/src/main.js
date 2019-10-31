@@ -23,11 +23,7 @@ var L05_PongCollision;
         ƒ.Debug.log(canvas);
         var pong = createPong();
         var cmpCamera = new ƒ.ComponentCamera();
-        cmpCamera.pivot.translateZ(42);
-        // paddleRight.cmpTransform.local.translateX(18);
-        // paddleLeft.cmpTransform.local.translateX(-18);
-        // (<ƒ.ComponentMesh>paddleLeft.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
-        // (<ƒ.ComponentMesh>paddleRight.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
+        cmpCamera.pivot.translateZ(50);
         viewport = new ƒ.Viewport();
         viewport.initialize("Viewport", pong, cmpCamera, canvas);
         ƒ.Debug.log(viewport);
@@ -101,29 +97,19 @@ var L05_PongCollision;
         function moveBall() {
             ball.cmpTransform.local.translate(ballVelocity);
         }
-        // console.log(detectHit(ball.cmpTransform.local.translation, paddleRight.cmpTransform.local));
-        // moveBall();
-        // console.log(ballPosX);
         ƒ.RenderManager.update();
         viewport.draw();
     }
     function createPong() {
         var meshQuad = new ƒ.MeshQuad();
         var mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
-        // ball.addComponent(new ƒ.ComponentMesh(meshQuad));
-        // paddleLeft.addComponent(new ƒ.ComponentMesh(meshQuad));
-        // paddleRight.addComponent(new ƒ.ComponentMesh(meshQuad));
-        // ball.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
-        // paddleLeft.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
-        // paddleRight.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
-        // Component for the Node to Transform in the World 
-        // ball.addComponent(new ƒ.ComponentTransform);
-        // paddleLeft.addComponent(new ƒ.ComponentTransform);
-        // paddleRight.addComponent(new ƒ.ComponentTransform);
+        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(-22, 0), new ƒ.Vector2(1, 30)));
+        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(22, 0), new ƒ.Vector2(1, 30)));
+        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, 15), new ƒ.Vector2(45, 1)));
+        pong.appendChild(createNode("Wall", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, -15), new ƒ.Vector2(45, 1)));
         ball = createNode("Ball", meshQuad, mtrSolidWhite, ƒ.Vector2.ZERO, new ƒ.Vector2(1, 1));
-        paddleLeft = createNode("PaddleLeft", meshQuad, mtrSolidWhite, new ƒ.Vector2(-20, 0), new ƒ.Vector2(1, 4));
-        paddleRight = createNode("PaddleRight", meshQuad, mtrSolidWhite, new ƒ.Vector2(20, 0), new ƒ.Vector2(1, 4));
-        // ball.cmpTransform.local.translate( new ƒ.Vector3(-20.8, -13.7, 0) );
+        paddleLeft = createNode("PaddleLeft", meshQuad, mtrSolidWhite, new ƒ.Vector2(-18, 0), new ƒ.Vector2(1, 4));
+        paddleRight = createNode("PaddleRight", meshQuad, mtrSolidWhite, new ƒ.Vector2(18, 0), new ƒ.Vector2(1, 4));
         ƒ.Debug.log(ball.cmpTransform.local.translation.x);
         pong.appendChild(ball);
         pong.appendChild(paddleLeft);
@@ -154,18 +140,3 @@ var L05_PongCollision;
         }
     }
 })(L05_PongCollision || (L05_PongCollision = {}));
-// function moveBall(): void {
-//     ball.cmpTransform.local.translate(ballVelocity);
-//     ballTranslationX = ball.cmpTransform.local.translation.x;
-//     ballTranslationY = ball.cmpTransform.local.translation.y;
-//     if ( ballTranslationX < -20.8 || ballTranslationX > 20.8) {
-//         ballVelocity.x = -ballVelocity.x;
-//     }
-//     if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
-//         ballVelocity.y = -ballVelocity.y;
-//     }
-//     // if (ballTranslationX > paddleRight.cmpTransform.local.translation.x) {
-//     //     ballVelocityY = -ballVelocityY;
-//     //     console.log("Test");
-//     // }
-// }
