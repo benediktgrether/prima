@@ -16,8 +16,13 @@ namespace L05_PongCollision {
     let paddleLeft: ƒ.Node =    new ƒ.Node("PaddleLeft");
     let paddleRight: ƒ.Node = new ƒ.Node("PaddleRight");
     
+    let wallTop: ƒ.Node = new ƒ.Node("WallTop");
+    let wallBottom: ƒ.Node = new ƒ.Node("WallBottom");
+    let wallLeft: ƒ.Node = new ƒ.Node("WallLeft");
+    let wallRight: ƒ.Node = new ƒ.Node("WallRight");
+    
 
-    let ballVelocity: ƒ.Vector3 =  new ƒ.Vector3(generateRandomeValue(), 0, 0);
+    let ballVelocity: ƒ.Vector3 =  new ƒ.Vector3(generateRandomeValue(), 0.3, 0);
 
     let collisionRightTop: boolean = false;
     let collisionRightBottom: boolean = false;
@@ -38,11 +43,25 @@ namespace L05_PongCollision {
         let cmpCamera: ƒ.ComponentCamera = new ƒ.ComponentCamera();
         cmpCamera.pivot.translateZ(42);
 
-        paddleRight.cmpTransform.local.translateX(20);
-        paddleLeft.cmpTransform.local.translateX(-20);
+        paddleRight.cmpTransform.local.translateX(18);
+        paddleLeft.cmpTransform.local.translateX(-18);
+
 
         (<ƒ.ComponentMesh>paddleLeft.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
         (<ƒ.ComponentMesh>paddleRight.getComponent(ƒ.ComponentMesh)).pivot.scaleY(4);
+
+
+        wallTop.cmpTransform.local.translateY(14);
+        (<ƒ.ComponentMesh>wallTop.getComponent(ƒ.ComponentMesh)).pivot.scaleX(43);
+        
+        wallBottom.cmpTransform.local.translateY(-14);
+        (<ƒ.ComponentMesh>wallBottom.getComponent(ƒ.ComponentMesh)).pivot.scaleX(43);
+        
+        wallLeft.cmpTransform.local.translateX(-20);
+        (<ƒ.ComponentMesh>wallLeft.getComponent(ƒ.ComponentMesh)).pivot.scaleY(28);
+        
+        wallRight.cmpTransform.local.translateY(10);
+        (<ƒ.ComponentMesh>wallRight.getComponent(ƒ.ComponentMesh)).pivot.scaleX(43);
 
         viewport = new ƒ.Viewport();
         viewport.initialize("Viewport", pong, cmpCamera, canvas);
@@ -106,32 +125,82 @@ namespace L05_PongCollision {
         
         let sclRectLeft: ƒ.Vector3 = paddleLeft.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
         let posRectLeft: ƒ.Vector3 = paddleLeft.cmpTransform.local.translation.copy ;
+        
+        let sclRectWallTop: ƒ.Vector3 = wallTop.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        let posRectWallTop: ƒ.Vector3 = wallTop.cmpTransform.local.translation.copy ;
+        
+        let sclRectWallBottom: ƒ.Vector3 = wallBottom.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        let posRectWallBottom: ƒ.Vector3 = wallBottom.cmpTransform.local.translation.copy ;
+        
+        let sclRectWallLeft: ƒ.Vector3 = wallLeft.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        let posRectWallLeft: ƒ.Vector3 = wallLeft.cmpTransform.local.translation.copy ;
+        
+        let sclRectWallRight: ƒ.Vector3 = wallRight.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        let posRectWallRight: ƒ.Vector3 = wallRight.cmpTransform.local.translation.copy ;
 
-        let hit: boolean = detectHit(ball.cmpTransform.local.translation, posRectRight, sclRectRight, posRectLeft, sclRectLeft);
+        let hit: boolean = detectHit(ball.cmpTransform.local.translation, posRectRight, sclRectRight, posRectLeft, sclRectLeft, sclRectWallTop, posRectWallTop, posRectWallBottom, sclRectWallBottom, sclRectWallLeft, posRectWallLeft, sclRectWallRight, posRectWallRight);
         // console.log(hit);
-        if (!hit) {
-             moveBall();
-            } else {
-                ballVelocity.x = - ballVelocity.x;
-                ball.cmpTransform.local.translate(ballVelocity);
-            }
+        if (!hit) 
+            moveBall();
 
 
-        function detectHit(_position: ƒ.Vector3, _posRectRight: ƒ.Vector3, _sclRectRight: ƒ.Vector3, _posRectLeft: ƒ.Vector3, _sclRectLeft: ƒ.Vector3): boolean {
+        function detectHit(_position: ƒ.Vector3, _posRectRight: ƒ.Vector3, _sclRectRight: ƒ.Vector3, _posRectLeft: ƒ.Vector3, _sclRectLeft: ƒ.Vector3, _sclRectWallBottom: ƒ.Vector3, _posRectWallBottom: ƒ.Vector3, _posRectWallTop: ƒ.Vector3, _sclRectWallTop: ƒ.Vector3, _posRectWallLeft: ƒ.Vector3, _sclRectWallLeft: ƒ.Vector3, _posRectWallRight: ƒ.Vector3, _sclRectWallRight: ƒ.Vector3): boolean {
 
             let rectRight: ƒ.Rectangle = new ƒ.Rectangle(_posRectRight.x, _posRectRight.y, _sclRectRight.x, _sclRectRight.y, ƒ.ORIGIN2D.CENTER); 
 
             let rectLeft: ƒ.Rectangle = new ƒ.Rectangle(_posRectLeft.x, _posRectLeft.y, _sclRectLeft.x, _sclRectLeft.y, ƒ.ORIGIN2D.CENTER); 
+            
+            let rectBottom: ƒ.Rectangle = new ƒ.Rectangle(_posRectWallBottom.x, _posRectWallBottom.y, _sclRectWallBottom.x, _sclRectWallBottom.y, ƒ.ORIGIN2D.CENTER); 
+            
+            let rectTop: ƒ.Rectangle = new ƒ.Rectangle(_posRectWallTop.x, _posRectWallTop.y, _sclRectWallTop.x, _sclRectWallTop.y, ƒ.ORIGIN2D.CENTER); 
+            
+            let rectWallLeft: ƒ.Rectangle = new ƒ.Rectangle(_posRectWallLeft.x, _posRectWallLeft.y, _sclRectWallLeft.x, _sclRectWallLeft.y, ƒ.ORIGIN2D.CENTER); 
+            
+            let rectWallRight: ƒ.Rectangle = new ƒ.Rectangle(_posRectWallRight.x, _posRectWallRight.y, _sclRectWallRight.x, _sclRectWallRight.y, ƒ.ORIGIN2D.CENTER); 
 
+            console.log(rectBottom.isInside(_position.getVector2()));
             // console.log(rectRight, rectLeft);
 
             if (rectRight.isInside(_position.getVector2()) == true) {
+                ballVelocity.x = -ballVelocity.x;
+                ball.cmpTransform.local.translate(ballVelocity);
                 return rectRight.isInside(_position.getVector2());
             }
             if (rectLeft.isInside(_position.getVector2()) == true) {
+                ballVelocity.x = -ballVelocity.x;
+                ball.cmpTransform.local.translate(ballVelocity);
                 return rectLeft.isInside(_position.getVector2());
             }
-            
+            if (rectBottom.isInside(_position.getVector2()) == true) {
+                console.log("hit");
+                ballVelocity.y = -ballVelocity.y;
+                ball.cmpTransform.local.translate(ballVelocity);
+                return rectBottom.isInside(_position.getVector2());
+            }
+            if (rectTop.isInside(_position.getVector2()) == true) {
+                ballVelocity.y = -ballVelocity.y;
+                ball.cmpTransform.local.translate(ballVelocity);
+                console.log("hit");
+                return rectTop.isInside(_position.getVector2());
+            }
+
+            if (rectWallLeft.isInside(_position.getVector2()) == true) {
+                // ballVelocity.x = 0;
+                // ballVelocity.y = 0;
+                // ball.cmpTransform.local.translate(ballVelocity);
+                console.log("test");
+                window.alert("Player One Wins");
+                return rectWallLeft.isInside(_position.getVector2());
+            }
+            if (rectWallRight.isInside(_position.getVector2()) == true) {
+                // ballVelocity.x = 0;
+                // ballVelocity.y = 0;
+                // ball.cmpTransform.local.translate(ballVelocity);
+                console.log("test2");
+                window.alert("Player Two Wins");
+                return rectWallRight.isInside(_position.getVector2());
+            }
+            return false;
             // return rectRight.isInside(_position.getVector2());
         }
     
@@ -146,31 +215,6 @@ namespace L05_PongCollision {
         ƒ.RenderManager.update();
         viewport.draw();
     }
-
-    // function moveBall(): void {
-
-    //     ball.cmpTransform.local.translate(ballVelocity);
-
-    //     ballTranslationX = ball.cmpTransform.local.translation.x;
-    //     ballTranslationY = ball.cmpTransform.local.translation.y;
-
-
-
-    //     if ( ballTranslationX < -20.8 || ballTranslationX > 20.8) {
-    //         ballVelocity.x = -ballVelocity.x;
-    //     }
-
-    //     if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
-    //         ballVelocity.y = -ballVelocity.y;
-    //     }
-
-    //     // if (ballTranslationX > paddleRight.cmpTransform.local.translation.x) {
-    //     //     ballVelocityY = -ballVelocityY;
-    //     //     console.log("Test");
-    //     // }
-
-    // }
-
 
     function createPong(): ƒ.Node {
         let pong: ƒ.Node = new ƒ.Node("Pong");
@@ -194,6 +238,34 @@ namespace L05_PongCollision {
 
         // ball.cmpTransform.local.translate( new ƒ.Vector3(-20.8, -13.7, 0) );
         ƒ.Debug.log(ball.cmpTransform.local.translation.x );
+
+
+        // Make Walls
+        // for (let index = 0; index < 4; index++) {
+        //     const element = array[index];
+            
+        // }
+        
+        wallTop.addComponent(new ƒ.ComponentMesh(meshQuad));
+        wallTop.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
+        wallTop.addComponent(new ƒ.ComponentTransform);
+
+        wallBottom.addComponent(new ƒ.ComponentMesh(meshQuad));
+        wallBottom.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
+        wallBottom.addComponent(new ƒ.ComponentTransform);
+        
+        wallLeft.addComponent(new ƒ.ComponentMesh(meshQuad));
+        wallLeft.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
+        wallLeft.addComponent(new ƒ.ComponentTransform);
+
+        wallRight.addComponent(new ƒ.ComponentMesh(meshQuad));
+        wallRight.addComponent(new ƒ.ComponentMaterial(mtrSolidWhite));
+        wallRight.addComponent(new ƒ.ComponentTransform);
+
+        pong.appendChild(wallTop);
+        pong.appendChild(wallBottom);
+        pong.appendChild(wallLeft);
+        pong.appendChild(wallRight);
 
         pong.appendChild(ball);
         pong.appendChild(paddleLeft);
@@ -219,3 +291,29 @@ namespace L05_PongCollision {
         }
     }
 }
+
+
+
+    // function moveBall(): void {
+
+    //     ball.cmpTransform.local.translate(ballVelocity);
+
+    //     ballTranslationX = ball.cmpTransform.local.translation.x;
+    //     ballTranslationY = ball.cmpTransform.local.translation.y;
+
+
+
+    //     if ( ballTranslationX < -20.8 || ballTranslationX > 20.8) {
+    //         ballVelocity.x = -ballVelocity.x;
+    //     }
+
+    //     if (ballTranslationY < -13.7 || ballTranslationY > 13.7) {
+    //         ballVelocity.y = -ballVelocity.y;
+    //     }
+
+    //     // if (ballTranslationX > paddleRight.cmpTransform.local.translation.x) {
+    //     //     ballVelocityY = -ballVelocityY;
+    //     //     console.log("Test");
+    //     // }
+
+    // }
