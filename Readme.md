@@ -54,7 +54,7 @@ Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein ge
 
 - [] Spielregeln entwickeln und festlegen
 - [] Technischen gegebenheite? -> Minecraft völlig gerastete Welt. - Bewegungen im Raster 
-- [] Konzept mit Zeichnung und Erklärungen.
+- [] Konzept mit Zeichnung und Erklärungen. (Was sind die Steuerungsmöglichkeiten des Nutzers,)
 
 Überlegung
 
