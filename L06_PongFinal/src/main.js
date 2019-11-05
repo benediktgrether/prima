@@ -9,22 +9,23 @@ var L06_PongFinal;
     var ball;
     var paddleLeft;
     var paddleRight;
-    var posRect;
-    var sclRect;
+    var canvas;
     var ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
     var collisionRightTop = false;
     var collisionRightBottom = false;
     var collisionLeftTop = false;
     var collisionLeftBottom = false;
+    var playerOne = 0;
+    var playerTwo = 0;
+    var noWin = true;
     var keysPressed = {};
     var paddleSpeedTranslation = 0.5;
     var paddleSpeedRotation = 5;
     var controls;
-    var ballSpeed = new ƒ.Vector3(0.5, -0.0, 0);
     var mtxBall;
     var crc2;
     function handleLoad(_event) {
-        var canvas = document.querySelector("canvas");
+        canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
         crc2 = canvas.getContext("2d");
@@ -39,33 +40,39 @@ var L06_PongFinal;
         document.addEventListener("keydown", hndKeydown);
         document.addEventListener("keyup", hndKeyup);
         viewport.draw();
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "white";
+        ctx.font = "30px Arial";
+        ctx.fillText("Hello World", 100, 100);
         // FUDGE Core Game Loop and Starting the Loop
         ƒ.Loop.addEventListener("loopFrame" /* LOOP_FRAME */, update);
         ƒ.Loop.start();
     }
     function update(_event) {
         // ƒ.Debug.log(keysPressed);
-        processInput();
-        var hit = false;
-        for (var _i = 0, _a = pong.getChildren(); _i < _a.length; _i++) {
-            var node = _a[_i];
-            if (node.name == "Ball")
-                continue;
-            hit = detectHit(ball.cmpTransform.local.translation, node);
-            if (hit) {
-                processHit(node);
-                break;
+        if (noWin == true) {
+            processInput();
+            var hit = false;
+            for (var _i = 0, _a = pong.getChildren(); _i < _a.length; _i++) {
+                var node = _a[_i];
+                if (node.name == "Ball")
+                    continue;
+                hit = detectHit(ball.cmpTransform.local.translation, node);
+                if (hit) {
+                    processHit(node);
+                    break;
+                }
             }
+            moveBall();
+            ƒ.RenderManager.update();
+            viewport.draw();
+            crc2.strokeStyle = "white";
+            crc2.lineWidth = 4;
+            crc2.setLineDash([10, 10]);
+            crc2.moveTo(crc2.canvas.width / 2, 0);
+            crc2.lineTo(crc2.canvas.width / 2, crc2.canvas.height);
+            crc2.stroke();
         }
-        moveBall();
-        ƒ.RenderManager.update();
-        viewport.draw();
-        crc2.strokeStyle = "white";
-        crc2.lineWidth = 4;
-        crc2.setLineDash([10, 10]);
-        crc2.moveTo(crc2.canvas.width / 2, 0);
-        crc2.lineTo(crc2.canvas.width / 2, crc2.canvas.height);
-        crc2.stroke();
     }
     function detectHit(_position, _node) {
         var sclRect = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
@@ -82,7 +89,8 @@ var L06_PongFinal;
                 break;
             case "WallRight":
             case "WallLeft":
-                ballVelocity.x *= -1;
+                playerWin(_node);
+                // ballVelocity.x *= -1;
                 // window.alert("Hello");
                 break;
             case "PaddleLeft":
@@ -140,6 +148,17 @@ var L06_PongFinal;
         pong.appendChild(paddleLeft);
         pong.appendChild(paddleRight);
         return pong;
+    }
+    function playerWin(_node) {
+        noWin = false;
+        if (_node.name == "WallLeft") {
+            playerOne++;
+            window.alert(playerOne);
+        }
+        else {
+            playerTwo++;
+            window.alert(playerTwo);
+        }
     }
     function createNode(_name, _mesh, _material, _translation, _scaling) {
         var node = new ƒ.Node(_name);
