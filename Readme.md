@@ -1,6 +1,6 @@
 # PRIMA
 
-[L06_PongFinal](https://benediktgrether.github.io/prima/L05_PongFinal/)
+[L06_PongFinal](https://benediktgrether.github.io/prima/L06_PongFinal/)
 <br>
 
 [L05_PongCollision](https://benediktgrether.github.io/prima/L05_PongCollision/)
