@@ -153,12 +153,15 @@ var L06_PongFinal;
         noWin = false;
         if (_node.name == "WallLeft") {
             playerOne++;
-            window.alert(playerOne);
+            // window.alert(playerOne);
         }
         else {
             playerTwo++;
-            window.alert(playerTwo);
+            // window.alert(playerTwo);
         }
+        // if (ƒ.KEYBOARD_CODE.ENTER) {
+        //     noWin = true;
+        // }
     }
     function createNode(_name, _mesh, _material, _translation, _scaling) {
         var node = new ƒ.Node(_name);

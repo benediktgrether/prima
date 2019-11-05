@@ -216,11 +216,14 @@ namespace L06_PongFinal {
         noWin = false;
         if (_node.name == "WallLeft") {
             playerOne ++;
-            window.alert(playerOne);
+            // window.alert(playerOne);
         } else {
             playerTwo ++;
-            window.alert(playerTwo);
+            // window.alert(playerTwo);
         }
+        // if (ƒ.KEYBOARD_CODE.ENTER) {
+        //     noWin = true;
+        // }
     }
 
     function createNode(_name: string, _mesh: ƒ.Mesh, _material: ƒ.Material, _translation: ƒ.Vector2, _scaling: ƒ.Vector2): ƒ.Node {
