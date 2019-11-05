@@ -54,7 +54,7 @@ Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein ge
 
 - [] Spielregeln entwickeln und festlegen
 - [] Technischen gegebenheite? -> Minecraft völlig gerastete Welt. - Bewegungen im Raster 
-- [] 
+- [] Konzept mit Zeichnung und Erklärungen.
 
 Überlegung
 
@@ -62,3 +62,15 @@ Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein ge
 - Je mehr klötze umso stärker wird die Graviation und die nächsten Klötze kommen immer schneller
 - Raster prüfen welche Klötze sind die nachbarn?
 - Somawürfel 
+
+### Ideen
+
+- verschiedene Formen
+- Farbkombination verschwinden
+- Powerups
+- Zeitformen bauen
+- Base drehen
+- Fragment drehen
+- Fragment fallenrichtung beeinflussen
+- Kamera - Perspektive beeinflusst Steuerung
+
