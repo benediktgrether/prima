@@ -49,3 +49,16 @@ Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein ge
 
 - [x] Ball soll sich mit verschiedener Geschwindigkeit starten (Vector 3)
 - [x] An allen vier Wänden wieder abprallen.
+
+## To Do für FudgeCraft 
+
+- [] Spielregeln entwickeln und festlegen
+- [] Technischen gegebenheite? -> Minecraft völlig gerastete Welt. - Bewegungen im Raster 
+- [] 
+
+Überlegung
+
+- Zentraler Block wo die anderen dran gebaut werden
+- Je mehr klötze umso stärker wird die Graviation und die nächsten Klötze kommen immer schneller
+- Raster prüfen welche Klötze sind die nachbarn?
+- Somawürfel 

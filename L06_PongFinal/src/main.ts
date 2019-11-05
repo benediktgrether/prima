@@ -80,13 +80,6 @@ namespace L06_PongFinal {
 
         viewport.draw();
 
-
-
-        let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
-        ctx.fillStyle = "white";
-        ctx.font = "30px Arial";
-        ctx.fillText("Hello World", 100, 100);
-
         // FUDGE Core Game Loop and Starting the Loop
         ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
         ƒ.Loop.start();
@@ -114,12 +107,12 @@ namespace L06_PongFinal {
             ƒ.RenderManager.update();
             viewport.draw();
 
-            crc2.strokeStyle = "white";
-            crc2.lineWidth = 4;
-            crc2.setLineDash([10, 10]);
-            crc2.moveTo(crc2.canvas.width / 2, 0);
-            crc2.lineTo(crc2.canvas.width / 2, crc2.canvas.height);
-            crc2.stroke();
+            // crc2.strokeStyle = "white";
+            // crc2.lineWidth = 4;
+            // crc2.setLineDash([10, 10]);
+            // crc2.moveTo(crc2.canvas.width / 2, 0);
+            // crc2.lineTo(crc2.canvas.width / 2, crc2.canvas.height);
+            // crc2.stroke();
         }
     }
 
@@ -174,12 +167,8 @@ namespace L06_PongFinal {
         let controls: Controls = {};
         controls[ƒ.KEYBOARD_CODE.ARROW_UP] = { paddle: paddleRight, translation: ƒ.Vector3.Y(paddleSpeedTranslation), rotation: 0 };
         controls[ƒ.KEYBOARD_CODE.ARROW_DOWN] = { paddle: paddleRight, translation: ƒ.Vector3.Y(-paddleSpeedTranslation), rotation: 0 };
-        controls[ƒ.KEYBOARD_CODE.ARROW_LEFT] = { paddle: paddleRight, translation: ƒ.Vector3.ZERO(), rotation: paddleSpeedRotation };
-        controls[ƒ.KEYBOARD_CODE.ARROW_RIGHT] = { paddle: paddleRight, translation: ƒ.Vector3.ZERO(), rotation: -paddleSpeedRotation };
         controls[ƒ.KEYBOARD_CODE.W] = { paddle: paddleLeft, translation: ƒ.Vector3.Y(paddleSpeedTranslation), rotation: 0 };
         controls[ƒ.KEYBOARD_CODE.S] = { paddle: paddleLeft, translation: ƒ.Vector3.Y(-paddleSpeedTranslation), rotation: 0 };
-        controls[ƒ.KEYBOARD_CODE.A] = { paddle: paddleLeft, translation: ƒ.Vector3.ZERO(), rotation: paddleSpeedRotation };
-        controls[ƒ.KEYBOARD_CODE.D] = { paddle: paddleLeft, translation: ƒ.Vector3.ZERO(), rotation: -paddleSpeedRotation };
         return controls;
     }
 
