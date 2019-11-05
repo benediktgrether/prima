@@ -107,18 +107,16 @@ namespace L05_PongCollision {
                 processHit(node);
                 break;
             }
-            // console.log(hit);
         }
-        if (!hit) {
-            moveBall();
-        }
+           moveBall();
+
         ƒ.RenderManager.update();
         viewport.draw();
     }
 
     function detectHit(_position: ƒ.Vector3, _node: ƒ.Node): boolean {
-        sclRect = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
-        posRect = _node.cmpTransform.local.translation.copy;
+        let sclRect: ƒ.Vector3 = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        let posRect: ƒ.Vector3 = _node.cmpTransform.local.translation.copy;
         let rect: ƒ.Rectangle = new ƒ.Rectangle(posRect.x, posRect.y, sclRect.x, sclRect.y, ƒ.ORIGIN2D.CENTER);
         return rect.isInside(_position.toVector2());
     }

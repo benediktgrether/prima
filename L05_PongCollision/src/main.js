@@ -85,17 +85,14 @@ var L05_PongCollision;
                 processHit(node);
                 break;
             }
-            // console.log(hit);
         }
-        if (!hit) {
-            moveBall();
-        }
+        moveBall();
         ƒ.RenderManager.update();
         viewport.draw();
     }
     function detectHit(_position, _node) {
-        sclRect = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
-        posRect = _node.cmpTransform.local.translation.copy;
+        var sclRect = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        var posRect = _node.cmpTransform.local.translation.copy;
         var rect = new ƒ.Rectangle(posRect.x, posRect.y, sclRect.x, sclRect.y, ƒ.ORIGIN2D.CENTER);
         return rect.isInside(_position.toVector2());
     }
