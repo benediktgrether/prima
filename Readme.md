@@ -1,5 +1,8 @@
 # PRIMA
 
+[FudgeCore GameIdee](https://benediktgrether.github.io/prima/GameDesign/FudgeCraf_idee.html)
+<br>
+
 [L06_PongFinal](https://benediktgrether.github.io/prima/L06_PongFinal/)
 <br>
 
