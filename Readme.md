@@ -3,6 +3,9 @@
 [FudgeCore GameIdee](https://benediktgrether.github.io/prima/GameDesign/FudgeCraf_idee.html)
 <br>
 
+[L10_FudgeCraft](https://benediktgrether.github.io/prima/L10_FudgeCraft//)
+<br>
+
 [L06_PongFinal](https://benediktgrether.github.io/prima/L06_PongFinal/)
 <br>
 
