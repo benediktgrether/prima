@@ -77,3 +77,7 @@ Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein ge
 - Fragment fallenrichtung beeinflussen
 - Kamera - Perspektive beeinflusst Steuerung
 
+## FudgeCraft
+
+- 3x3 Array für die Positionen des Würfels
+- Fragmente, welche Rasterpunkte belegen die Fragmente
