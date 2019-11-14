@@ -1,6 +1,6 @@
 "use strict";
-var L07_FudgeCraft_Fragments;
-(function (L07_FudgeCraft_Fragments) {
+var L11_FudgeCraft;
+(function (L11_FudgeCraft) {
     var ƒ = FudgeCore;
     class Fragment extends ƒ.Node {
         constructor(_shape) {
@@ -8,10 +8,10 @@ var L07_FudgeCraft_Fragments;
             this.position = new ƒ.Vector3(0, 0, 0);
             let shape = Fragment.shapes[_shape];
             for (let position of shape) {
-                let type = Fragment.getRandomEnum(L07_FudgeCraft_Fragments.CUBE_TYPE);
+                let type = Fragment.getRandomEnum(L11_FudgeCraft.CUBE_TYPE);
                 let vctPosition = ƒ.Vector3.ZERO();
                 vctPosition.set(position[0], position[1], position[2]);
-                let cube = new L07_FudgeCraft_Fragments.Cube(type, vctPosition);
+                let cube = new L11_FudgeCraft.Cube(type, vctPosition);
                 this.appendChild(cube);
             }
         }
@@ -20,11 +20,9 @@ var L07_FudgeCraft_Fragments;
                 // corner
                 [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]],
                 // quad
-                [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [-1, -1, 0]],
+                [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0]],
                 // s
-                [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, -1, 0]],
-                //Test Shape
-                [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, -1, 0]],
+                [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, -1, 0]]
             ];
         }
         static getRandomEnum(_enum) {
@@ -33,6 +31,6 @@ var L07_FudgeCraft_Fragments;
         }
     }
     Fragment.shapes = Fragment.getShapeArray();
-    L07_FudgeCraft_Fragments.Fragment = Fragment;
-})(L07_FudgeCraft_Fragments || (L07_FudgeCraft_Fragments = {}));
+    L11_FudgeCraft.Fragment = Fragment;
+})(L11_FudgeCraft || (L11_FudgeCraft = {}));
 //# sourceMappingURL=Fragment.js.map

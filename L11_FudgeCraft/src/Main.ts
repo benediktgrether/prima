@@ -1,4 +1,5 @@
-namespace L07_FudgeCraft_Fragments {
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
+namespace L11_FudgeCraft {
     import ƒ = FudgeCore;
 
     window.addEventListener("load", hndLoad);
@@ -33,10 +34,10 @@ namespace L07_FudgeCraft_Fragments {
         fragment.addComponent(new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(ƒ.Vector3.X(-3))));
         game.appendChild(fragment);
 
-        fragment = new Fragment(3);
-        // ƒ.Debug.log("Fragment", fragment);
-        fragment.addComponent(new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(ƒ.Vector3.X(-6))));
-        game.appendChild(fragment);
+        // fragment = new Fragment(3);
+        // // ƒ.Debug.log("Fragment", fragment);
+        // fragment.addComponent(new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(ƒ.Vector3.X(-6))));
+        // game.appendChild(fragment);
 
         let cmpLight: ƒ.ComponentLight = new ƒ.ComponentLight(new ƒ.LightDirectional(ƒ.Color.WHITE));
         cmpLight.pivot.lookAt(new ƒ.Vector3(0.5, 1, 0.8));

@@ -1,6 +1,8 @@
 "use strict";
-var L07_FudgeCraft_Fragments;
-(function (L07_FudgeCraft_Fragments) {
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
+var L11_FudgeCraft;
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
+(function (L11_FudgeCraft) {
     var ƒ = FudgeCore;
     window.addEventListener("load", hndLoad);
     let viewport;
@@ -15,22 +17,22 @@ var L07_FudgeCraft_Fragments;
         cmpCamera.pivot.lookAt(ƒ.Vector3.ZERO());
         game = new ƒ.Node("FudgeCraft");
         // let cube: Cube = new Cube(CUBE_TYPE.BLUE);
-        let fragment = new L07_FudgeCraft_Fragments.Fragment(0);
+        let fragment = new L11_FudgeCraft.Fragment(0);
         // ƒ.Debug.log("Fragment", fragment);
         fragment.addComponent(new ƒ.ComponentTransform());
         game.appendChild(fragment);
-        fragment = new L07_FudgeCraft_Fragments.Fragment(1);
+        fragment = new L11_FudgeCraft.Fragment(1);
         // ƒ.Debug.log("Fragment", fragment);
         fragment.addComponent(new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(ƒ.Vector3.X(3))));
         game.appendChild(fragment);
-        fragment = new L07_FudgeCraft_Fragments.Fragment(2);
+        fragment = new L11_FudgeCraft.Fragment(2);
         // ƒ.Debug.log("Fragment", fragment);
         fragment.addComponent(new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(ƒ.Vector3.X(-3))));
         game.appendChild(fragment);
-        fragment = new L07_FudgeCraft_Fragments.Fragment(3);
-        // ƒ.Debug.log("Fragment", fragment);
-        fragment.addComponent(new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(ƒ.Vector3.X(-6))));
-        game.appendChild(fragment);
+        // fragment = new Fragment(3);
+        // // ƒ.Debug.log("Fragment", fragment);
+        // fragment.addComponent(new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(ƒ.Vector3.X(-6))));
+        // game.appendChild(fragment);
         let cmpLight = new ƒ.ComponentLight(new ƒ.LightDirectional(ƒ.Color.WHITE));
         cmpLight.pivot.lookAt(new ƒ.Vector3(0.5, 1, 0.8));
         game.addComponent(cmpLight);
@@ -64,5 +66,5 @@ var L07_FudgeCraft_Fragments;
         ƒ.RenderManager.update();
         viewport.draw();
     }
-})(L07_FudgeCraft_Fragments || (L07_FudgeCraft_Fragments = {}));
+})(L11_FudgeCraft || (L11_FudgeCraft = {}));
 //# sourceMappingURL=Main.js.map

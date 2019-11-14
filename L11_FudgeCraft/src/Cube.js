@@ -1,6 +1,6 @@
 "use strict";
-var L07_FudgeCraft_Fragments;
-(function (L07_FudgeCraft_Fragments) {
+var L11_FudgeCraft;
+(function (L11_FudgeCraft) {
     var ƒ = FudgeCore;
     let CUBE_TYPE;
     (function (CUBE_TYPE) {
@@ -10,7 +10,7 @@ var L07_FudgeCraft_Fragments;
         CUBE_TYPE["YELLOW"] = "Yellow";
         CUBE_TYPE["MAGENTA"] = "Magenta";
         CUBE_TYPE["CYAN"] = "Cyan";
-    })(CUBE_TYPE = L07_FudgeCraft_Fragments.CUBE_TYPE || (L07_FudgeCraft_Fragments.CUBE_TYPE = {}));
+    })(CUBE_TYPE = L11_FudgeCraft.CUBE_TYPE || (L11_FudgeCraft.CUBE_TYPE = {}));
     class Cube extends ƒ.Node {
         constructor(_type, _position) {
             super("Cube");
@@ -35,6 +35,6 @@ var L07_FudgeCraft_Fragments;
     }
     Cube.mesh = new ƒ.MeshCube();
     Cube.materials = Cube.createMaterials();
-    L07_FudgeCraft_Fragments.Cube = Cube;
-})(L07_FudgeCraft_Fragments || (L07_FudgeCraft_Fragments = {}));
+    L11_FudgeCraft.Cube = Cube;
+})(L11_FudgeCraft || (L11_FudgeCraft = {}));
 //# sourceMappingURL=Cube.js.map

@@ -1,4 +1,4 @@
-namespace L07_FudgeCraft_Fragments {
+namespace L11_FudgeCraft {
     import ƒ = FudgeCore;
 
     export class Fragment extends ƒ.Node {
@@ -7,9 +7,9 @@ namespace L07_FudgeCraft_Fragments {
 
         constructor(_shape: number) {
             super("Fragment-Type" + _shape);
-            let shape: number [][] = Fragment.shapes[_shape];
+            let shape: number[][] = Fragment.shapes[_shape];
             for (let position of shape) {
-                let type: CUBE_TYPE =  Fragment.getRandomEnum(CUBE_TYPE);
+                let type: CUBE_TYPE = Fragment.getRandomEnum(CUBE_TYPE);
                 let vctPosition: ƒ.Vector3 = ƒ.Vector3.ZERO();
                 vctPosition.set(position[0], position[1], position[2]);
                 let cube: Cube = new Cube(type, vctPosition);
@@ -22,15 +22,14 @@ namespace L07_FudgeCraft_Fragments {
                 // corner
                 [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]],
                 // quad
-                [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [-1, -1, 0]],
+                [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0]],
                 // s
-                [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, -1, 0]],
-                //Test Shape
-                [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, -1, 0]],
+                [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, -1, 0]]
+                
             ];
         }
 
-        private static getRandomEnum<T>(_enum: {[key: string]: T}): T {
+        private static getRandomEnum<T>(_enum: { [key: string]: T }): T {
             let randomKey: string = Object.keys(_enum)[Math.floor(Math.random() * Object.keys(_enum).length)];
             return _enum[randomKey];
         }

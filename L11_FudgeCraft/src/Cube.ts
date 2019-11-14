@@ -1,4 +1,4 @@
-namespace L07_FudgeCraft_Fragments {
+namespace L11_FudgeCraft {
     import ƒ = FudgeCore;
 
     export enum CUBE_TYPE {
