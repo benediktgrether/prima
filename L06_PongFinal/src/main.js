@@ -1,38 +1,40 @@
+"use strict";
 ///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 var L06_PongFinal;
+///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 (function (L06_PongFinal) {
     var ƒ = FudgeCore;
     window.addEventListener("load", handleLoad);
     // What do the viewport?
-    var viewport;
-    var pong = new ƒ.Node("Pong");
-    var ball;
-    var paddleLeft;
-    var paddleRight;
-    var canvas;
-    var ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
-    var collisionRightTop = false;
-    var collisionRightBottom = false;
-    var collisionLeftTop = false;
-    var collisionLeftBottom = false;
-    var playerOne = 0;
-    var playerTwo = 0;
-    var noWin = true;
-    var keysPressed = {};
-    var paddleSpeedTranslation = 0.5;
-    var paddleSpeedRotation = 5;
-    var controls;
-    var mtxBall;
-    var crc2;
+    let viewport;
+    let pong = new ƒ.Node("Pong");
+    let ball;
+    let paddleLeft;
+    let paddleRight;
+    let canvas;
+    let ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
+    let collisionRightTop = false;
+    let collisionRightBottom = false;
+    let collisionLeftTop = false;
+    let collisionLeftBottom = false;
+    let playerOne = 0;
+    let playerTwo = 0;
+    let noWin = true;
+    let keysPressed = {};
+    let paddleSpeedTranslation = 0.5;
+    let paddleSpeedRotation = 5;
+    let controls;
+    let mtxBall;
+    let crc2;
     function handleLoad(_event) {
         canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
         crc2 = canvas.getContext("2d");
-        var pong = createPong();
+        let pong = createPong();
         controls = defineControls();
         mtxBall = ball.cmpTransform.local;
-        var cmpCamera = new ƒ.ComponentCamera();
+        let cmpCamera = new ƒ.ComponentCamera();
         cmpCamera.pivot.translateZ(50);
         viewport = new ƒ.Viewport();
         viewport.initialize("Viewport", pong, cmpCamera, canvas);
@@ -48,9 +50,8 @@ var L06_PongFinal;
         // ƒ.Debug.log(keysPressed);
         if (noWin == true) {
             processInput();
-            var hit = false;
-            for (var _i = 0, _a = pong.getChildren(); _i < _a.length; _i++) {
-                var node = _a[_i];
+            let hit = false;
+            for (let node of pong.getChildren()) {
                 if (node.name == "Ball")
                     continue;
                 hit = detectHit(ball.cmpTransform.local.translation, node);
@@ -71,10 +72,10 @@ var L06_PongFinal;
         }
     }
     function detectHit(_position, _node) {
-        var sclRect = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
-        var mtxInverse = ƒ.Matrix4x4.INVERSION(_node.cmpTransform.local);
+        let sclRect = _node.getComponent(ƒ.ComponentMesh).pivot.scaling.copy;
+        let mtxInverse = ƒ.Matrix4x4.INVERSION(_node.cmpTransform.local);
         _position.transform(mtxInverse);
-        var rect = new ƒ.Rectangle(0, 0, sclRect.x, sclRect.y, ƒ.ORIGIN2D.CENTER);
+        let rect = new ƒ.Rectangle(0, 0, sclRect.x, sclRect.y, ƒ.ORIGIN2D.CENTER);
         return rect.isInside(_position.toVector2());
     }
     function processHit(_node) {
@@ -99,22 +100,22 @@ var L06_PongFinal;
         }
     }
     function reflectBall(_paddle) {
-        var normal = ƒ.Vector3.X(-1);
+        let normal = ƒ.Vector3.X(-1);
         normal.transform(_paddle.cmpTransform.local, false);
         ballVelocity.reflect(normal);
     }
     function processInput() {
-        for (var code in controls) {
+        for (let code in controls) {
             if (keysPressed[code]) {
-                var control = controls[code];
-                var mtxPaddle = control.paddle.cmpTransform.local;
+                let control = controls[code];
+                let mtxPaddle = control.paddle.cmpTransform.local;
                 mtxPaddle.translation = ƒ.Vector3.SUM(mtxPaddle.translation, control.translation);
                 mtxPaddle.rotateZ(control.rotation);
             }
         }
     }
     function defineControls() {
-        var controls = {};
+        let controls = {};
         controls[ƒ.KEYBOARD_CODE.ARROW_UP] = { paddle: paddleRight, translation: ƒ.Vector3.Y(paddleSpeedTranslation), rotation: 0 };
         controls[ƒ.KEYBOARD_CODE.ARROW_DOWN] = { paddle: paddleRight, translation: ƒ.Vector3.Y(-paddleSpeedTranslation), rotation: 0 };
         controls[ƒ.KEYBOARD_CODE.W] = { paddle: paddleLeft, translation: ƒ.Vector3.Y(paddleSpeedTranslation), rotation: 0 };
@@ -126,8 +127,8 @@ var L06_PongFinal;
         mtxBall.translate(ballVelocity);
     }
     function createPong() {
-        var meshQuad = new ƒ.MeshQuad();
-        var mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
+        let meshQuad = new ƒ.MeshQuad();
+        let mtrSolidWhite = new ƒ.Material("SolidWhite", ƒ.ShaderUniColor, new ƒ.CoatColored(new ƒ.Color(1, 1, 1, 1)));
         pong.appendChild(createNode("WallLeft", meshQuad, mtrSolidWhite, new ƒ.Vector2(-22, 0), new ƒ.Vector2(1, 30)));
         pong.appendChild(createNode("WallRight", meshQuad, mtrSolidWhite, new ƒ.Vector2(22, 0), new ƒ.Vector2(1, 30)));
         pong.appendChild(createNode("WallTop", meshQuad, mtrSolidWhite, new ƒ.Vector2(0, 15), new ƒ.Vector2(45, 1)));
@@ -156,7 +157,7 @@ var L06_PongFinal;
         // }
     }
     function createNode(_name, _mesh, _material, _translation, _scaling) {
-        var node = new ƒ.Node(_name);
+        let node = new ƒ.Node(_name);
         node.addComponent(new ƒ.ComponentTransform);
         node.addComponent(new ƒ.ComponentMaterial(_material));
         node.addComponent(new ƒ.ComponentMesh(_mesh));
@@ -179,3 +180,4 @@ var L06_PongFinal;
         }
     }
 })(L06_PongFinal || (L06_PongFinal = {}));
+//# sourceMappingURL=main.js.map
