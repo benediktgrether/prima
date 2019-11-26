@@ -17,11 +17,6 @@ namespace L05_PongCollision {
     let paddleLeft: ƒ.Node;
     let paddleRight: ƒ.Node;
 
-
-    let posRect: ƒ.Vector3;
-    let sclRect: ƒ.Vector3;
-
-
     let ballVelocity: ƒ.Vector3 = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
 
     let collisionRightTop: boolean = false;
@@ -108,7 +103,8 @@ namespace L05_PongCollision {
                 break;
             }
         }
-           moveBall();
+        
+        moveBall();
 
         ƒ.RenderManager.update();
         viewport.draw();

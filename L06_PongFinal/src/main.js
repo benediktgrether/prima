@@ -13,24 +13,18 @@ var L06_PongFinal;
     let paddleRight;
     let canvas;
     let ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
-    let collisionRightTop = false;
-    let collisionRightBottom = false;
-    let collisionLeftTop = false;
-    let collisionLeftBottom = false;
     let playerOne = 0;
     let playerTwo = 0;
     let noWin = true;
     let keysPressed = {};
     let paddleSpeedTranslation = 0.5;
-    let paddleSpeedRotation = 5;
     let controls;
     let mtxBall;
-    let crc2;
     function handleLoad(_event) {
         canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
-        crc2 = canvas.getContext("2d");
+        // let crc2: CanvasRenderingContext2D = canvas.getContext("2d");
         let pong = createPong();
         controls = defineControls();
         mtxBall = ball.cmpTransform.local;
@@ -145,11 +139,11 @@ var L06_PongFinal;
     function playerWin(_node) {
         noWin = false;
         if (_node.name == "WallLeft") {
-            playerOne++;
+            playerOne = playerOne + 1;
             // window.alert(playerOne);
         }
         else {
-            playerTwo++;
+            playerTwo = playerTwo + 1;
             // window.alert(playerTwo);
         }
         // if (ƒ.KEYBOARD_CODE.ENTER) {

@@ -11,8 +11,6 @@ var L05_PongCollision;
     let ball;
     let paddleLeft;
     let paddleRight;
-    let posRect;
-    let sclRect;
     let ballVelocity = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
     let collisionRightTop = false;
     let collisionRightBottom = false;

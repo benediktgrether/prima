@@ -8,6 +8,7 @@ var L11_FudgeCraft;
     let viewport;
     let game;
     let rotate = ƒ.Vector3.ZERO();
+    // let grid: Cube [][][];
     function hndLoad(_event) {
         const canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize(true);
@@ -47,16 +48,16 @@ var L11_FudgeCraft;
         //let rotate: ƒ.Vector3 = ƒ.Vector3.ZERO();
         switch (_event.code) {
             case ƒ.KEYBOARD_CODE.ARROW_UP:
-                rotate.add(ƒ.Vector3.X(-1));
+                rotate.add(ƒ.Vector3.X(-90));
                 break;
             case ƒ.KEYBOARD_CODE.ARROW_DOWN:
-                rotate.add(ƒ.Vector3.X(1));
+                rotate.add(ƒ.Vector3.X(90));
                 break;
             case ƒ.KEYBOARD_CODE.ARROW_LEFT:
-                rotate.add(ƒ.Vector3.Y(-1));
+                rotate.add(ƒ.Vector3.Y(-90));
                 break;
             case ƒ.KEYBOARD_CODE.ARROW_RIGHT:
-                rotate.add(ƒ.Vector3.Y(1));
+                rotate.add(ƒ.Vector3.Y(90));
                 break;
         }
         for (let fragment of game.getChildren()) {
@@ -66,5 +67,10 @@ var L11_FudgeCraft;
         ƒ.RenderManager.update();
         viewport.draw();
     }
+    // function getGrid(): Cube{
+    //     return null;
+    // }
+    // function setGrid( cube: Cube){
+    // }
 })(L11_FudgeCraft || (L11_FudgeCraft = {}));
 //# sourceMappingURL=Main.js.map

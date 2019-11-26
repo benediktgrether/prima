@@ -7,6 +7,8 @@ namespace L11_FudgeCraft {
     let game: ƒ.Node;
     let rotate: ƒ.Vector3 = ƒ.Vector3.ZERO();
 
+    // let grid: Cube [][][];
+
     function hndLoad(_event: Event): void {
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
         ƒ.RenderManager.initialize(true);
@@ -59,16 +61,16 @@ namespace L11_FudgeCraft {
         //let rotate: ƒ.Vector3 = ƒ.Vector3.ZERO();
         switch (_event.code) {
             case ƒ.KEYBOARD_CODE.ARROW_UP:
-                rotate.add(ƒ.Vector3.X(-1));
+                rotate.add(ƒ.Vector3.X(-90));
                 break;
             case ƒ.KEYBOARD_CODE.ARROW_DOWN:
-                rotate.add(ƒ.Vector3.X(1));
+                rotate.add(ƒ.Vector3.X(90));
                 break;
             case ƒ.KEYBOARD_CODE.ARROW_LEFT:
-                rotate.add(ƒ.Vector3.Y(-1));
+                rotate.add(ƒ.Vector3.Y(-90));
                 break;
             case ƒ.KEYBOARD_CODE.ARROW_RIGHT:
-                rotate.add(ƒ.Vector3.Y(1));
+                rotate.add(ƒ.Vector3.Y(90));
                 break;
         }
         for (let fragment of game.getChildren()) {
@@ -79,4 +81,12 @@ namespace L11_FudgeCraft {
         ƒ.RenderManager.update();
         viewport.draw();
     }
+
+    // function getGrid(): Cube{
+    //     return null;
+    // }
+
+    // function setGrid( cube: Cube){
+
+    // }
 }

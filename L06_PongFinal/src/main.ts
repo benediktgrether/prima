@@ -33,11 +33,6 @@ namespace L06_PongFinal {
 
     let ballVelocity: ƒ.Vector3 = new ƒ.Vector3(generateRandomeValue(), generateRandomeValue(), 0);
 
-    let collisionRightTop: boolean = false;
-    let collisionRightBottom: boolean = false;
-    let collisionLeftTop: boolean = false;
-    let collisionLeftBottom: boolean = false;
-
     let playerOne: number = 0;
     let playerTwo: number = 0;
 
@@ -46,21 +41,18 @@ namespace L06_PongFinal {
     let keysPressed: KeyPressed = {};
 
     let paddleSpeedTranslation: number = 0.5;
-    let paddleSpeedRotation: number = 5;
     let controls: Controls;
 
 
     let mtxBall: ƒ.Matrix4x4;
 
-    let crc2: CanvasRenderingContext2D;
 
     function handleLoad(_event: Event): void {
         canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize();
         ƒ.Debug.log(canvas);
 
-
-        crc2 = canvas.getContext("2d");
+        // let crc2: CanvasRenderingContext2D = canvas.getContext("2d");
 
         let pong: ƒ.Node = createPong();
 
@@ -204,10 +196,10 @@ namespace L06_PongFinal {
     function playerWin(_node: ƒ.Node): void {
         noWin = false;
         if (_node.name == "WallLeft") {
-            playerOne ++;
+            playerOne = playerOne + 1;
             // window.alert(playerOne);
         } else {
-            playerTwo ++;
+            playerTwo = playerTwo + 1;
             // window.alert(playerTwo);
         }
         // if (ƒ.KEYBOARD_CODE.ENTER) {

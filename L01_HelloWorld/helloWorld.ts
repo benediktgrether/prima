@@ -4,7 +4,7 @@
 
 //   // Müssen wir immer die Variablen Deklaration mitgeben?
 //   // oder ist es für uns, für die leichtere Lesbarkeit?
-//   let stringOutput: string = "!Hello World!";
+    // let stringOutput: string = "!Hello World!";
 
 //   // Was sind die 2 Unterschiede?
 //   let listNumber: number[] = [1, 2, 3];
