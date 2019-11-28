@@ -19,7 +19,7 @@ namespace L13_FudgeCraftCamera {
         // cmpCamera.pivot.lookAt(ƒ.Vector3.ZERO());
         // cmpCamera.backgroundColor = ƒ.Color.WHITE;
 
-        let cmpCamera: Camera = new Camera();
+        let camera: CameraOrbit = new CameraOrbit(75); 
 
         let cmpLight: ƒ.ComponentLight = new ƒ.ComponentLight(new ƒ.LightDirectional(ƒ.Color.WHITE));
         cmpLight.pivot.lookAt(new ƒ.Vector3(0.5, 1, 0.8));
@@ -28,7 +28,7 @@ namespace L13_FudgeCraftCamera {
         game.addComponent(cmpLightAmbient);
 
         viewport = new ƒ.Viewport();
-        viewport.initialize("Viewport", game, cmpCamera, canvas);
+        viewport.initialize("Viewport", game, camera.cmpCamera, canvas);
         ƒ.Debug.log("Viewport", viewport);
         viewport.draw();
 

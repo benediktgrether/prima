@@ -1,23 +1,23 @@
 "use strict";
-var L12_FudgeCraftCollision;
-(function (L12_FudgeCraftCollision) {
+var L13_FudgeCraftCamera;
+(function (L13_FudgeCraftCamera) {
     var ƒ = FudgeCore;
     class GridElement {
         constructor(_cube = null) {
             this.cube = _cube;
         }
     }
-    L12_FudgeCraftCollision.GridElement = GridElement;
+    L13_FudgeCraftCamera.GridElement = GridElement;
     class Grid extends Map {
         constructor() {
             super();
-            this.push(ƒ.Vector3.ZERO(), new GridElement(new L12_FudgeCraftCollision.Cube(L12_FudgeCraftCollision.CUBE_TYPE.GREY, ƒ.Vector3.ZERO())));
+            this.push(ƒ.Vector3.ZERO(), new GridElement(new L13_FudgeCraftCamera.Cube(L13_FudgeCraftCamera.CUBE_TYPE.GREY, ƒ.Vector3.ZERO())));
         }
         push(_position, _element = null) {
             let key = this.toKey(_position);
             this.set(key, _element);
             if (_element)
-                L12_FudgeCraftCollision.game.appendChild(_element.cube);
+                L13_FudgeCraftCamera.game.appendChild(_element.cube);
         }
         pull(_position) {
             let key = this.toKey(_position);
@@ -29,7 +29,7 @@ var L12_FudgeCraftCollision;
             let element = this.get(key);
             this.delete(key);
             if (element)
-                L12_FudgeCraftCollision.game.removeChild(element.cube);
+                L13_FudgeCraftCamera.game.removeChild(element.cube);
             return element;
         }
         toKey(_position) {
@@ -38,6 +38,6 @@ var L12_FudgeCraftCollision;
             return key;
         }
     }
-    L12_FudgeCraftCollision.Grid = Grid;
-})(L12_FudgeCraftCollision || (L12_FudgeCraftCollision = {}));
+    L13_FudgeCraftCamera.Grid = Grid;
+})(L13_FudgeCraftCamera || (L13_FudgeCraftCamera = {}));
 //# sourceMappingURL=Grid.js.map

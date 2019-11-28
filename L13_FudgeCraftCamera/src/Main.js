@@ -1,35 +1,36 @@
 "use strict";
 ///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
-var L12_FudgeCraftCollision;
+var L13_FudgeCraftCamera;
 ///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
-(function (L12_FudgeCraftCollision) {
+(function (L13_FudgeCraftCamera) {
     var ƒ = FudgeCore;
     window.addEventListener("load", hndLoad);
-    L12_FudgeCraftCollision.game = new ƒ.Node("FudgeCraft");
-    L12_FudgeCraftCollision.grid = new L12_FudgeCraftCollision.Grid();
-    let control = new L12_FudgeCraftCollision.Control();
+    L13_FudgeCraftCamera.game = new ƒ.Node("FudgeCraft");
+    L13_FudgeCraftCamera.grid = new L13_FudgeCraftCamera.Grid();
+    let control = new L13_FudgeCraftCamera.Control();
     let viewport;
     function hndLoad(_event) {
         const canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize(true);
         ƒ.Debug.log("Canvas", canvas);
-        let cmpCamera = new ƒ.ComponentCamera();
-        cmpCamera.pivot.translate(new ƒ.Vector3(4, 6, 20));
-        cmpCamera.pivot.lookAt(ƒ.Vector3.ZERO());
-        cmpCamera.backgroundColor = ƒ.Color.WHITE;
+        // let cmpCamera: ƒ.ComponentCamera = new ƒ.ComponentCamera();
+        // cmpCamera.pivot.translate(new ƒ.Vector3(4, 6, 20));
+        // cmpCamera.pivot.lookAt(ƒ.Vector3.ZERO());
+        // cmpCamera.backgroundColor = ƒ.Color.WHITE;
+        let camera = new L13_FudgeCraftCamera.CameraOrbit(75);
         let cmpLight = new ƒ.ComponentLight(new ƒ.LightDirectional(ƒ.Color.WHITE));
         cmpLight.pivot.lookAt(new ƒ.Vector3(0.5, 1, 0.8));
-        L12_FudgeCraftCollision.game.addComponent(cmpLight);
+        L13_FudgeCraftCamera.game.addComponent(cmpLight);
         let cmpLightAmbient = new ƒ.ComponentLight(new ƒ.LightAmbient(ƒ.Color.DARK_GREY));
-        L12_FudgeCraftCollision.game.addComponent(cmpLightAmbient);
+        L13_FudgeCraftCamera.game.addComponent(cmpLightAmbient);
         viewport = new ƒ.Viewport();
-        viewport.initialize("Viewport", L12_FudgeCraftCollision.game, cmpCamera, canvas);
+        viewport.initialize("Viewport", L13_FudgeCraftCamera.game, camera.cmpCamera, canvas);
         ƒ.Debug.log("Viewport", viewport);
         viewport.draw();
         startRandomFragment();
-        L12_FudgeCraftCollision.game.appendChild(control);
+        L13_FudgeCraftCamera.game.appendChild(control);
         viewport.draw();
-        ƒ.Debug.log("Game", L12_FudgeCraftCollision.game);
+        ƒ.Debug.log("Game", L13_FudgeCraftCamera.game);
         window.addEventListener("keydown", hndKeyDown);
     }
     function hndKeyDown(_event) {
@@ -37,7 +38,7 @@ var L12_FudgeCraftCollision;
             control.freeze();
             startRandomFragment();
         }
-        let transformation = L12_FudgeCraftCollision.Control.transformations[_event.code];
+        let transformation = L13_FudgeCraftCamera.Control.transformations[_event.code];
         if (transformation)
             move(transformation);
         // ƒ.RenderManager.update();
@@ -65,15 +66,15 @@ var L12_FudgeCraftCollision;
         });
     }
     function startRandomFragment() {
-        let fragment = L12_FudgeCraftCollision.Fragment.getRandom();
+        let fragment = L13_FudgeCraftCamera.Fragment.getRandom();
         control.cmpTransform.local = ƒ.Matrix4x4.IDENTITY;
         control.setFragment(fragment);
     }
-    L12_FudgeCraftCollision.startRandomFragment = startRandomFragment;
+    L13_FudgeCraftCamera.startRandomFragment = startRandomFragment;
     // function getGrid(): Cube{
     //     return null;
     // }
     // function setGrid( cube: Cube){
     // }
-})(L12_FudgeCraftCollision || (L12_FudgeCraftCollision = {}));
+})(L13_FudgeCraftCamera || (L13_FudgeCraftCamera = {}));
 //# sourceMappingURL=Main.js.map

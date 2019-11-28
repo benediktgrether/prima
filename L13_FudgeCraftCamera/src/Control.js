@@ -1,6 +1,6 @@
 "use strict";
-var L12_FudgeCraftCollision;
-(function (L12_FudgeCraftCollision) {
+var L13_FudgeCraftCamera;
+(function (L13_FudgeCraftCamera) {
     var ƒ = FudgeCore;
     class Control extends ƒ.Node {
         constructor() {
@@ -44,7 +44,7 @@ var L12_FudgeCraftCollision;
             ƒ.RenderManager.update();
             let collisions = [];
             for (let cube of this.fragment.getChildren()) {
-                let element = L12_FudgeCraftCollision.grid.pull(cube.mtxWorld.translation);
+                let element = L13_FudgeCraftCamera.grid.pull(cube.mtxWorld.translation);
                 if (element)
                     collisions.push({ element, cube });
             }
@@ -56,11 +56,11 @@ var L12_FudgeCraftCollision;
             for (let cube of this.fragment.getChildren()) {
                 let position = cube.mtxWorld.translation;
                 cube.cmpTransform.local.translation = position;
-                L12_FudgeCraftCollision.grid.push(position, new L12_FudgeCraftCollision.GridElement(cube));
+                L13_FudgeCraftCamera.grid.push(position, new L13_FudgeCraftCamera.GridElement(cube));
             }
         }
     }
     Control.transformations = Control.defineControls();
-    L12_FudgeCraftCollision.Control = Control;
-})(L12_FudgeCraftCollision || (L12_FudgeCraftCollision = {}));
+    L13_FudgeCraftCamera.Control = Control;
+})(L13_FudgeCraftCamera || (L13_FudgeCraftCamera = {}));
 //# sourceMappingURL=Control.js.map

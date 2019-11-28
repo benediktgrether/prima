@@ -1,6 +1,6 @@
 "use strict";
-var L12_FudgeCraftCollision;
-(function (L12_FudgeCraftCollision) {
+var L13_FudgeCraftCamera;
+(function (L13_FudgeCraftCamera) {
     var ƒ = FudgeCore;
     class Fragment extends ƒ.Node {
         constructor(_shape, _position = ƒ.Vector3.ZERO()) {
@@ -10,11 +10,11 @@ var L12_FudgeCraftCollision;
             for (let position of shape) {
                 let type;
                 do {
-                    type = Fragment.getRandomEnum(L12_FudgeCraftCollision.CUBE_TYPE);
-                } while (type == L12_FudgeCraftCollision.CUBE_TYPE.GREY);
+                    type = Fragment.getRandomEnum(L13_FudgeCraftCamera.CUBE_TYPE);
+                } while (type == L13_FudgeCraftCamera.CUBE_TYPE.GREY);
                 let vctPosition = ƒ.Vector3.ZERO();
                 vctPosition.set(position[0], position[1], position[2]);
-                let cube = new L12_FudgeCraftCollision.Cube(type, vctPosition);
+                let cube = new L13_FudgeCraftCamera.Cube(type, vctPosition);
                 this.appendChild(cube);
             }
             this.addComponent(new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(_position)));
@@ -40,6 +40,6 @@ var L12_FudgeCraftCollision;
         }
     }
     Fragment.shapes = Fragment.getShapeArray();
-    L12_FudgeCraftCollision.Fragment = Fragment;
-})(L12_FudgeCraftCollision || (L12_FudgeCraftCollision = {}));
+    L13_FudgeCraftCamera.Fragment = Fragment;
+})(L13_FudgeCraftCamera || (L13_FudgeCraftCamera = {}));
 //# sourceMappingURL=Fragment.js.map

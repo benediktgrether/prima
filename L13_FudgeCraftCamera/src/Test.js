@@ -1,24 +1,24 @@
 "use strict";
-var L12_FudgeCraftCollision;
-(function (L12_FudgeCraftCollision) {
+var L13_FudgeCraftCamera;
+(function (L13_FudgeCraftCamera) {
     var ƒ = FudgeCore;
     function test() {
         testGrid();
     }
-    L12_FudgeCraftCollision.test = test;
+    L13_FudgeCraftCamera.test = test;
     function testGrid() {
-        let cube = new L12_FudgeCraftCollision.Cube(L12_FudgeCraftCollision.CUBE_TYPE.GREEN, ƒ.Vector3.ZERO());
-        L12_FudgeCraftCollision.grid.push(cube.cmpTransform.local.translation, new L12_FudgeCraftCollision.GridElement(cube));
-        let pulled = L12_FudgeCraftCollision.grid.pull(cube.cmpTransform.local.translation);
+        let cube = new L13_FudgeCraftCamera.Cube(L13_FudgeCraftCamera.CUBE_TYPE.GREEN, ƒ.Vector3.ZERO());
+        L13_FudgeCraftCamera.grid.push(cube.cmpTransform.local.translation, new L13_FudgeCraftCamera.GridElement(cube));
+        let pulled = L13_FudgeCraftCamera.grid.pull(cube.cmpTransform.local.translation);
         logResult(cube == pulled.cube, "Grid push and pull", cube, pulled.cube, pulled);
-        let popped = L12_FudgeCraftCollision.grid.pop(cube.cmpTransform.local.translation);
+        let popped = L13_FudgeCraftCamera.grid.pop(cube.cmpTransform.local.translation);
         logResult(cube == popped.cube, "Grid pop", cube, popped.cube, popped);
-        let empty = L12_FudgeCraftCollision.grid.pull(cube.cmpTransform.local.translation);
+        let empty = L13_FudgeCraftCamera.grid.pull(cube.cmpTransform.local.translation);
         logResult(empty == undefined, "Grid element deleted");
     }
     function logResult(_success, ..._args) {
         let log = _success ? console.log : console.warn;
         log(`Test success: ${_success}`, _args);
     }
-})(L12_FudgeCraftCollision || (L12_FudgeCraftCollision = {}));
+})(L13_FudgeCraftCamera || (L13_FudgeCraftCamera = {}));
 //# sourceMappingURL=Test.js.map

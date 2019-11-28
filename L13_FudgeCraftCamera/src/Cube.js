@@ -1,6 +1,6 @@
 "use strict";
-var L12_FudgeCraftCollision;
-(function (L12_FudgeCraftCollision) {
+var L13_FudgeCraftCamera;
+(function (L13_FudgeCraftCamera) {
     var ƒ = FudgeCore;
     let CUBE_TYPE;
     (function (CUBE_TYPE) {
@@ -11,7 +11,7 @@ var L12_FudgeCraftCollision;
         CUBE_TYPE["MAGENTA"] = "Magenta";
         CUBE_TYPE["CYAN"] = "Cyan";
         CUBE_TYPE["GREY"] = "Grey";
-    })(CUBE_TYPE = L12_FudgeCraftCollision.CUBE_TYPE || (L12_FudgeCraftCollision.CUBE_TYPE = {}));
+    })(CUBE_TYPE = L13_FudgeCraftCamera.CUBE_TYPE || (L13_FudgeCraftCamera.CUBE_TYPE = {}));
     class Cube extends ƒ.Node {
         constructor(_type, _position) {
             super("Cube: " + _type);
@@ -36,6 +36,6 @@ var L12_FudgeCraftCollision;
     }
     Cube.mesh = new ƒ.MeshCube();
     Cube.materials = Cube.createMaterials();
-    L12_FudgeCraftCollision.Cube = Cube;
-})(L12_FudgeCraftCollision || (L12_FudgeCraftCollision = {}));
+    L13_FudgeCraftCamera.Cube = Cube;
+})(L13_FudgeCraftCamera || (L13_FudgeCraftCamera = {}));
 //# sourceMappingURL=Cube.js.map
