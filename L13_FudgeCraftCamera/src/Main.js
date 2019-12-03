@@ -9,29 +9,52 @@ var L13_FudgeCraftCamera;
     L13_FudgeCraftCamera.grid = new L13_FudgeCraftCamera.Grid();
     let control = new L13_FudgeCraftCamera.Control();
     let viewport;
+    let camera;
+    let speedCameraRotation = 0.2;
+    let speedCameraTranslation = 0.02;
     function hndLoad(_event) {
         const canvas = document.querySelector("canvas");
         ƒ.RenderManager.initialize(true);
         ƒ.Debug.log("Canvas", canvas);
-        // let cmpCamera: ƒ.ComponentCamera = new ƒ.ComponentCamera();
-        // cmpCamera.pivot.translate(new ƒ.Vector3(4, 6, 20));
-        // cmpCamera.pivot.lookAt(ƒ.Vector3.ZERO());
-        // cmpCamera.backgroundColor = ƒ.Color.WHITE;
-        let camera = new L13_FudgeCraftCamera.CameraOrbit(75);
+        // enable unlimited mouse-movement (user needs to click on canvas first)
+        canvas.addEventListener("click", canvas.requestPointerLock);
+        // set lights
         let cmpLight = new ƒ.ComponentLight(new ƒ.LightDirectional(ƒ.Color.WHITE));
         cmpLight.pivot.lookAt(new ƒ.Vector3(0.5, 1, 0.8));
         L13_FudgeCraftCamera.game.addComponent(cmpLight);
         let cmpLightAmbient = new ƒ.ComponentLight(new ƒ.LightAmbient(ƒ.Color.DARK_GREY));
         L13_FudgeCraftCamera.game.addComponent(cmpLightAmbient);
+        // setup orbiting camera
+        camera = new L13_FudgeCraftCamera.CameraOrbit(75);
+        L13_FudgeCraftCamera.game.appendChild(camera);
+        camera.setRotationX(-20);
+        camera.setRotationY(20);
+        // setup viewport
         viewport = new ƒ.Viewport();
         viewport.initialize("Viewport", L13_FudgeCraftCamera.game, camera.cmpCamera, canvas);
         ƒ.Debug.log("Viewport", viewport);
-        viewport.draw();
+        // setup event handling 
+        viewport.activatePointerEvent("\u0192pointermove" /* MOVE */, true);
+        viewport.activateWheelEvent("\u0192wheel" /* WHEEL */, true);
+        viewport.addEventListener("\u0192pointermove" /* MOVE */, hndPointerMove);
+        viewport.addEventListener("\u0192wheel" /* WHEEL */, hndWheelMove);
+        window.addEventListener("keydown", hndKeyDown);
         startRandomFragment();
         L13_FudgeCraftCamera.game.appendChild(control);
-        viewport.draw();
+        updateDisplay();
         ƒ.Debug.log("Game", L13_FudgeCraftCamera.game);
-        window.addEventListener("keydown", hndKeyDown);
+    }
+    function updateDisplay() {
+        viewport.draw();
+    }
+    function hndPointerMove(_event) {
+        camera.rotateY(_event.movementX * speedCameraRotation);
+        camera.rotateX(_event.movementX * speedCameraRotation);
+        updateDisplay();
+    }
+    function hndWheelMove(_event) {
+        camera.translate(_event.deltaY * speedCameraTranslation);
+        updateDisplay();
     }
     function hndKeyDown(_event) {
         if (_event.code == ƒ.KEYBOARD_CODE.SPACE) {
@@ -41,8 +64,7 @@ var L13_FudgeCraftCamera;
         let transformation = L13_FudgeCraftCamera.Control.transformations[_event.code];
         if (transformation)
             move(transformation);
-        // ƒ.RenderManager.update();
-        viewport.draw();
+        updateDisplay();
     }
     function move(_transformation) {
         let animationSteps = 10;
@@ -71,10 +93,5 @@ var L13_FudgeCraftCamera;
         control.setFragment(fragment);
     }
     L13_FudgeCraftCamera.startRandomFragment = startRandomFragment;
-    // function getGrid(): Cube{
-    //     return null;
-    // }
-    // function setGrid( cube: Cube){
-    // }
 })(L13_FudgeCraftCamera || (L13_FudgeCraftCamera = {}));
 //# sourceMappingURL=Main.js.map

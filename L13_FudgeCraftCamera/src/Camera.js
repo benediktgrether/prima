@@ -14,12 +14,12 @@ var L13_FudgeCraftCamera;
             let cmpTransform = new ƒ.ComponentTransform();
             this.addComponent(cmpTransform);
             let rotatorX = new ƒ.Node("CameraRotX");
+            rotatorX.addComponent(new ƒ.ComponentTransform());
             this.appendChild(rotatorX);
             let cmpCamera = new ƒ.ComponentCamera();
             cmpCamera.backgroundColor = ƒ.Color.WHITE;
             rotatorX.addComponent(cmpCamera);
             this.setDistance(20);
-            cmpCamera.pivot.lookAt(ƒ.Vector3.ZERO());
         }
         get cmpCamera() {
             return this.rotatorX.getComponent(ƒ.ComponentCamera);
@@ -35,10 +35,22 @@ var L13_FudgeCraftCamera;
             this.setDistance(this.cmpCamera.pivot.translation.z + _delta);
         }
         setRotationY(_angle) {
-            this.cmpTransform.local.rotation.y = _angle;
+            this.cmpTransform.local.rotation = ƒ.Vector3.Y(_angle);
         }
         setRotationX(_angle) {
-            this.rotatorX.cmpTransform.local.rotation.x = _angle;
+            _angle = Math.min(Math.max(-this.maxRotX, _angle), this.maxRotX);
+            this.rotatorX.cmpTransform.local.rotation = ƒ.Vector3.X(_angle);
+        }
+        rotateY(_delta) {
+            this.cmpTransform.local.rotateY(_delta);
+        }
+        rotateX(_delta) {
+            let angle = this.rotatorX.cmpTransform.local.rotation.x + _delta;
+            this.setRotationX(angle);
+        }
+        translate(_delta) {
+            let distance = this.cmpCamera.pivot.translation.z + _delta;
+            this.setDistance(distance);
         }
     }
     L13_FudgeCraftCamera.CameraOrbit = CameraOrbit;

@@ -17,16 +17,16 @@ namespace L13_FudgeCraftCamera {
         private static materials: Materials = Cube.createMaterials();
 
         constructor(_type: CUBE_TYPE, _position: ƒ.Vector3) {
-            super("Cube: " + _type);
+            super("Cube." + _type);
 
             let cmpMesh: ƒ.ComponentMesh = new ƒ.ComponentMesh(Cube.mesh);
+            cmpMesh.pivot.scale(ƒ.Vector3.ONE(0.9));
             this.addComponent(cmpMesh);
 
             let cmpMaterial: ƒ.ComponentMaterial = new ƒ.ComponentMaterial(Cube.materials.get(_type));
             this.addComponent(cmpMaterial);
 
             let cmpTransform: ƒ.ComponentTransform = new ƒ.ComponentTransform(ƒ.Matrix4x4.TRANSLATION(_position));
-            cmpTransform.local.scale(ƒ.Vector3.ONE(0.95));
             this.addComponent(cmpTransform);
         }
 
@@ -37,7 +37,8 @@ namespace L13_FudgeCraftCamera {
                 [CUBE_TYPE.BLUE, new ƒ.Material(CUBE_TYPE.BLUE, ƒ.ShaderFlat, new ƒ.CoatColored(ƒ.Color.BLUE))],
                 [CUBE_TYPE.MAGENTA, new ƒ.Material(CUBE_TYPE.MAGENTA, ƒ.ShaderFlat, new ƒ.CoatColored(ƒ.Color.MAGENTA))],
                 [CUBE_TYPE.YELLOW, new ƒ.Material(CUBE_TYPE.YELLOW, ƒ.ShaderFlat, new ƒ.CoatColored(ƒ.Color.YELLOW))],
-                [CUBE_TYPE.CYAN, new ƒ.Material(CUBE_TYPE.CYAN, ƒ.ShaderFlat, new ƒ.CoatColored(ƒ.Color.CYAN))]
+                [CUBE_TYPE.CYAN, new ƒ.Material(CUBE_TYPE.CYAN, ƒ.ShaderFlat, new ƒ.CoatColored(ƒ.Color.CYAN))],
+                [CUBE_TYPE.GREY, new ƒ.Material(CUBE_TYPE.GREY, ƒ.ShaderFlat, new ƒ.CoatColored(ƒ.Color.LIGHT_GREY))]
             ]);
         }
     }

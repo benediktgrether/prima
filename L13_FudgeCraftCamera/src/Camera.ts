@@ -1,4 +1,4 @@
-namespace L13_FudgeCraftCamera{
+namespace L13_FudgeCraftCamera {
   import ƒ = FudgeCore;
 
   export class CameraOrbit extends ƒ.Node {
@@ -7,7 +7,7 @@ namespace L13_FudgeCraftCamera{
     // rotatorX: ƒ.Node;
     maxRotX: number = 75;
     minDistance: number = 1;
-  
+
     constructor(_maxRotX: number) {
       super("CameraOrbit");
 
@@ -17,15 +17,13 @@ namespace L13_FudgeCraftCamera{
       this.addComponent(cmpTransform);
 
       let rotatorX: ƒ.Node = new ƒ.Node("CameraRotX");
+      rotatorX.addComponent(new ƒ.ComponentTransform());
       this.appendChild(rotatorX);
 
       let cmpCamera: ƒ.ComponentCamera = new ƒ.ComponentCamera();
-  
       cmpCamera.backgroundColor = ƒ.Color.WHITE;
-
       rotatorX.addComponent(cmpCamera);
       this.setDistance(20);
-      cmpCamera.pivot.lookAt(ƒ.Vector3.ZERO());
     }
 
     get cmpCamera(): ƒ.ComponentCamera {
@@ -36,7 +34,7 @@ namespace L13_FudgeCraftCamera{
       return this.getChildrenByName("CameraRotX")[0];
     }
 
-    setDistance(_distance: number ): void {
+    setDistance(_distance: number): void {
       let newDistance: number = Math.max(this.minDistance, _distance);
       this.cmpCamera.pivot.translation = ƒ.Vector3.Z(newDistance);
     }
@@ -46,12 +44,24 @@ namespace L13_FudgeCraftCamera{
     }
 
     setRotationY(_angle: number): void {
-      this.cmpTransform.local.rotation.y = _angle;
+      this.cmpTransform.local.rotation = ƒ.Vector3.Y(_angle);
     }
 
     setRotationX(_angle: number): void {
-      this.rotatorX.cmpTransform.local.rotation.x = _angle;
+      _angle = Math.min(Math.max(-this.maxRotX, _angle), this.maxRotX);
+      this.rotatorX.cmpTransform.local.rotation = ƒ.Vector3.X(_angle);
+    }
+    rotateY(_delta: number): void {
+      this.cmpTransform.local.rotateY(_delta);
+    }
+
+    rotateX(_delta: number): void {
+      let angle: number = this.rotatorX.cmpTransform.local.rotation.x + _delta;
+      this.setRotationX(angle);
+    }
+    translate(_delta: number): void {
+      let distance: number = this.cmpCamera.pivot.translation.z + _delta;
+      this.setDistance(distance);
     }
   }
-
 }
