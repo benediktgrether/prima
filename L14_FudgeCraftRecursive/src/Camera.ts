@@ -2,9 +2,6 @@ namespace L14_FudgeCraftRecursive {
   import ƒ = FudgeCore;
 
   export class CameraOrbit extends ƒ.Node {
-    // public camera: Camera;
-    // private static camera: ƒ.ComponentCamera;
-    // rotatorX: ƒ.Node;
     maxRotX: number = 75;
     minDistance: number = 1;
 

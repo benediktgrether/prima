@@ -57,7 +57,7 @@ namespace L14_FudgeCraftRecursive {
     }
 
     function startGame(): void {
-        grid.push(ƒ.Vector3.ZERO(), new GridElement(new Cube(CUBE_TYPE.GREY, ƒ.Vector3.ZERO())));
+        grid.push(ƒ.Vector3.ZERO(), new GridElement(new Cube(CUBE_TYPE.BLACK, ƒ.Vector3.ZERO())));
         startRandomFragment();
     }
 
@@ -66,7 +66,7 @@ namespace L14_FudgeCraftRecursive {
     }
 
     function hndPointerMove(_event: ƒ.PointerEventƒ): void {
-        // console.log(_event.movementX, _event.movementY);
+        // ƒ.Debug.log(_event.movementX, _event.movementY);
         camera.rotateY(_event.movementX * speedCameraRotation);
         camera.rotateX(_event.movementY * speedCameraRotation);
         updateDisplay();
@@ -94,15 +94,40 @@ namespace L14_FudgeCraftRecursive {
 
     function handleCombos(_combos: Combos): void {
         for (let combo of _combos.found)
-            if (combo.length > 2)
+            if (combo.length > 2){
+                compress();
                 for (let element of combo) {
                     let mtxLocal: ƒ.Matrix4x4 = element.cube.cmpTransform.local;
-                    console.log(element.cube.name, mtxLocal.translation.getMutator());
+                    ƒ.Debug.log(element.cube.name, mtxLocal.translation.getMutator());
                     // mtxLocal.rotateX(45);
                     // mtxLocal.rotateY(45);
                     // mtxLocal.rotateY(45, true);
-                    mtxLocal.scale(ƒ.Vector3.ONE(0.5));
+                    // mtxLocal.scale(ƒ.Vector3.ONE(0.5));
+                    game.removeChild(element.cube);
                 }
+            }
+    }
+
+    function compress(): void {
+        let moves: Move[] = grid.compress();
+
+        for (let move of moves) {
+            grid.pop(move.element.position);
+            grid.push(move.target, move.element);
+        }
+
+        let animationSteps: number = 10;
+        ƒ.Time.game.setTimer(10, animationSteps, function (): void {
+            for (let move of moves) {
+                let translation: ƒ.Vector3 = ƒ.Vector3.DIFFERENCE(move.target, move.element.position);
+                translation.normalize(1 / animationSteps);
+                move.element.position = ƒ.Vector3.SUM(move.element.position, translation);
+            }
+            updateDisplay();
+        });
+
+        if (moves.length > 0)
+            ƒ.Time.game.setTimer(400, 1, compress);
     }
 
     function move(_transformation: Transformation): void {
@@ -118,8 +143,7 @@ namespace L14_FudgeCraftRecursive {
         if (Object.keys(timers).length > 0)
             return;
 
-        let collisions: GridElement[] = control.checkCollisions(move);
-        if (collisions.length > 0)
+        if (control.checkCollisions(move).length > 0)
             return;
 
         move.translation.scale(1 / animationSteps);

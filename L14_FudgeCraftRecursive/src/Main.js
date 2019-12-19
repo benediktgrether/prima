@@ -47,7 +47,7 @@ var L14_FudgeCraftRecursive;
         L14_FudgeCraftRecursive.ƒ.Debug.log("Game", L14_FudgeCraftRecursive.game);
     }
     function startGame() {
-        L14_FudgeCraftRecursive.grid.push(L14_FudgeCraftRecursive.ƒ.Vector3.ZERO(), new L14_FudgeCraftRecursive.GridElement(new L14_FudgeCraftRecursive.Cube(L14_FudgeCraftRecursive.CUBE_TYPE.GREY, L14_FudgeCraftRecursive.ƒ.Vector3.ZERO())));
+        L14_FudgeCraftRecursive.grid.push(L14_FudgeCraftRecursive.ƒ.Vector3.ZERO(), new L14_FudgeCraftRecursive.GridElement(new L14_FudgeCraftRecursive.Cube(L14_FudgeCraftRecursive.CUBE_TYPE.BLACK, L14_FudgeCraftRecursive.ƒ.Vector3.ZERO())));
         startRandomFragment();
     }
     function updateDisplay() {
@@ -55,7 +55,7 @@ var L14_FudgeCraftRecursive;
     }
     L14_FudgeCraftRecursive.updateDisplay = updateDisplay;
     function hndPointerMove(_event) {
-        // console.log(_event.movementX, _event.movementY);
+        // ƒ.Debug.log(_event.movementX, _event.movementY);
         camera.rotateY(_event.movementX * speedCameraRotation);
         camera.rotateX(_event.movementY * speedCameraRotation);
         updateDisplay();
@@ -78,15 +78,36 @@ var L14_FudgeCraftRecursive;
     }
     function handleCombos(_combos) {
         for (let combo of _combos.found)
-            if (combo.length > 2)
+            if (combo.length > 2) {
+                compress();
                 for (let element of combo) {
                     let mtxLocal = element.cube.cmpTransform.local;
-                    console.log(element.cube.name, mtxLocal.translation.getMutator());
+                    L14_FudgeCraftRecursive.ƒ.Debug.log(element.cube.name, mtxLocal.translation.getMutator());
                     // mtxLocal.rotateX(45);
                     // mtxLocal.rotateY(45);
                     // mtxLocal.rotateY(45, true);
-                    mtxLocal.scale(L14_FudgeCraftRecursive.ƒ.Vector3.ONE(0.5));
+                    // mtxLocal.scale(ƒ.Vector3.ONE(0.5));
+                    L14_FudgeCraftRecursive.game.removeChild(element.cube);
                 }
+            }
+    }
+    function compress() {
+        let moves = L14_FudgeCraftRecursive.grid.compress();
+        for (let move of moves) {
+            L14_FudgeCraftRecursive.grid.pop(move.element.position);
+            L14_FudgeCraftRecursive.grid.push(move.target, move.element);
+        }
+        let animationSteps = 10;
+        L14_FudgeCraftRecursive.ƒ.Time.game.setTimer(10, animationSteps, function () {
+            for (let move of moves) {
+                let translation = L14_FudgeCraftRecursive.ƒ.Vector3.DIFFERENCE(move.target, move.element.position);
+                translation.normalize(1 / animationSteps);
+                move.element.position = L14_FudgeCraftRecursive.ƒ.Vector3.SUM(move.element.position, translation);
+            }
+            updateDisplay();
+        });
+        if (moves.length > 0)
+            L14_FudgeCraftRecursive.ƒ.Time.game.setTimer(400, 1, compress);
     }
     function move(_transformation) {
         let animationSteps = 10;
@@ -99,8 +120,7 @@ var L14_FudgeCraftRecursive;
         let timers = L14_FudgeCraftRecursive.ƒ.Time.game.getTimers();
         if (Object.keys(timers).length > 0)
             return;
-        let collisions = control.checkCollisions(move);
-        if (collisions.length > 0)
+        if (control.checkCollisions(move).length > 0)
             return;
         move.translation.scale(1 / animationSteps);
         move.rotation.scale(1 / animationSteps);

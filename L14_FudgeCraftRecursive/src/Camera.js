@@ -5,9 +5,6 @@ var L14_FudgeCraftRecursive;
     class CameraOrbit extends ƒ.Node {
         constructor(_maxRotX) {
             super("CameraOrbit");
-            // public camera: Camera;
-            // private static camera: ƒ.ComponentCamera;
-            // rotatorX: ƒ.Node;
             this.maxRotX = 75;
             this.minDistance = 1;
             this.maxRotX = Math.min(_maxRotX, 89);

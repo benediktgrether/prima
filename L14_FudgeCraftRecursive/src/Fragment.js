@@ -11,7 +11,7 @@ var L14_FudgeCraftRecursive;
                 let type;
                 do {
                     type = Fragment.getRandomEnum(L14_FudgeCraftRecursive.CUBE_TYPE);
-                } while (type == L14_FudgeCraftRecursive.CUBE_TYPE.GREY);
+                } while (type == L14_FudgeCraftRecursive.CUBE_TYPE.BLACK);
                 let vctPosition = ƒ.Vector3.ZERO();
                 vctPosition.set(position[0], position[1], position[2]);
                 let cube = new L14_FudgeCraftRecursive.Cube(type, vctPosition);
