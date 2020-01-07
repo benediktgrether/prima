@@ -1,4 +1,5 @@
-.sprites-wrapper{
+
+.sprites-wrapper, .headline{
   display: flex;
   align-items: center;
   flex-direction: column;
