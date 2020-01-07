@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Wichtig, Fudge Core muss implementiert werden, ansonsten wird die Datei nicht gefunden -->
   <script src="../Fudge/FudgeCore.js"></script>
-  <script src="./src/Main.js"></script>
+  <script src="./src/js/Main.js"></script>
+  <link rel="stylesheet" href="./src/css/main.css">
   <title>L20-Platformer Setup</title>
   <style>
     body{
@@ -16,6 +17,26 @@
 </head>
 <body>
   <h1>Platformer Setup</h1>
-  <canvas width="600" height="400"></canvas>
+  <!-- <canvas width="600" height="400"></canvas> -->
+  <div class="sprites-wrapper">
+    <div class="sprites-char">
+      <img src="./src/png/sprite01.png" alt="sprite01">
+    </div>
+    <div class="sprites-move">
+      <img src="./src/png/move01.gif" alt="movement">
+    </div>
+    <div class="sprites-plattform">
+      <img src="./src/png/plattform.png" alt="plattform">
+    </div>
+    <div class="sprites-tree">
+      <img src="./src/png/tree.png" alt="tree">
+    </div>
+    <div class="sprites-mountains">
+      <img src="./src/png/mountains.png" alt="mountains">
+    </div>
+    <div class="sprites-testing">
+      <img src="./src/png/Testing.png" alt="testing">
+    </div>
+  </div>
 </body>
 </html>
