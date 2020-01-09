@@ -1,4 +1,4 @@
-///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
+///<reference types="../../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 namespace L20_Platformer {
   export import ƒ = FudgeCore;
 

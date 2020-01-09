@@ -1,7 +1,7 @@
 "use strict";
-///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
+///<reference types="../../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 var L20_Platformer;
-///<reference types="./../../Fudge/FudgeCore.js"/> //Path to FudgeCore
+///<reference types="../../../Fudge/FudgeCore.js"/> //Path to FudgeCore
 (function (L20_Platformer) {
     L20_Platformer.ƒ = FudgeCore;
     window.addEventListener("load", hndLoad);
