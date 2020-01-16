@@ -38,7 +38,7 @@ var L21_ScrollerControl;
         static generateSprites(_txtImage) {
             Bene.sprites = [];
             let sprite = new L21_ScrollerControl.Sprite(ACTION.WALK);
-            sprite.generateByGrid(_txtImage, ƒ.Rectangle.GET(1, 279, 30.8, 51), 4, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
+            sprite.generateByGrid(_txtImage, ƒ.Rectangle.GET(30, 279, 30.8, 51), 4, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
             Bene.sprites.push(sprite);
             sprite = new L21_ScrollerControl.Sprite(ACTION.IDLE);
             sprite.generateByGrid(_txtImage, ƒ.Rectangle.GET(1, 279, 30.8, 51), 1, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);

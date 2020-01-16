@@ -87,3 +87,26 @@ Sind DOM Typisierung immer groß geschrieben und Variablendeklarationen klein ge
 
 - 3x3 Array für die Positionen des Würfels
 - Fragmente, welche Rasterpunkte belegen die Fragmente
+
+
+Scroller
+Platform Abfrage, wenn es aus dem viewport ist, wieder hinten anhängen.
+
+
+## Endaufgabe
+
+Jump and Run weiter machen.
+
+Anforderungen 
+- Nutzerinteraktion (Spieler kann was tun | Was kann er tun?)
+- Objektinteraktion (Objekte Interagieren irgendwie miteinandern)
+- Objektanzahl variable (Irgendwas muss spawnen | Dinge werden zur Laufzeit generiert)
+- Szenenhierarchie (Alle Floor Teile liegen in einem Floor Objekt -> Szene Hierarchie Sinnvoll einsetze und Nutze)
+- Sound sollten wir drin haben.
+- GUI mit Komponente (irgendwas)
+- Externe Daten (JSON Datei um das Level zu laden)
+- Verhaltensklasse
+- Subklassen 
+- Maße & Position (Kriterium wählen wir für unsere Größen. Was bedeutet bei uns 1.)
+- Message System (Eventlistner Einsatz)
+

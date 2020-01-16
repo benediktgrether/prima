@@ -17,7 +17,7 @@ namespace L20_ScrollerHare {
 
     sprite = new Sprite("Hare");
     // sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(18, 0, 17.5, 84), 4, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
-    sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(1, 279, 30.8, 51), 4, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
+    sprite.generateByGrid(txtImage, ƒ.Rectangle.GET(30, 279, 30.8, 51), 4, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
     ƒ.RenderManager.initialize(true, false);
     root = new ƒ.Node("Root");
     let mtxHare: ƒ.Matrix4x4;
@@ -60,7 +60,7 @@ namespace L20_ScrollerHare {
     viewport.draw();
 
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
-    ƒ.Loop.start(ƒ.LOOP_MODE.TIME_GAME, 10);
+    ƒ.Loop.start(ƒ.LOOP_MODE.TIME_GAME, 5);
 
     function update(_event: ƒ.Eventƒ): void {
       // ƒ.Debug.log(frame);

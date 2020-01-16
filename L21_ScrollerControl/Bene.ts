@@ -41,7 +41,7 @@ namespace L21_ScrollerControl {
     public static generateSprites(_txtImage: ƒ.TextureImage): void {
       Bene.sprites = [];
       let sprite: Sprite = new Sprite(ACTION.WALK);
-      sprite.generateByGrid(_txtImage, ƒ.Rectangle.GET(1, 279, 30.8, 51), 4, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
+      sprite.generateByGrid(_txtImage, ƒ.Rectangle.GET(30, 279, 30.8, 51), 4, ƒ.Vector2.ZERO(), 64, ƒ.ORIGIN2D.BOTTOMCENTER);
       Bene.sprites.push(sprite);
 
       sprite = new Sprite(ACTION.IDLE);
