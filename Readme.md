@@ -1,4 +1,8 @@
 # PRIMA
+[Game - Github Pages](https://benediktgrether.github.io/run_bene_run/)
+[Endabge Prima ](https://github.com/benediktgrether/run_bene_run)
+[Design Dokument](https://github.com/benediktgrether/run_bene_run/blob/master/information/benedikt_grether_prima.pdf)
+[Zip Folder](https://github.com/benediktgrether/run_bene_run/blob/master/run-bene-run.zip)
 
 [L20_Platformer](https://benediktgrether.github.io/prima/L20_Platformer/)
 <br>
